@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>iReflection — A private daily handwriting journal for iPad</title>
-  <meta name="description" content="iReflection turns your iPad into a private handwritten journal. Write with Apple Pencil, track your streak, and keep every entry on-device — no account, no cloud, no analytics.">
-  <meta name="keywords" content="iReflection, iPad journal, handwriting journal, Apple Pencil, daily journal, private journal, on-device, iPadOS app">
+  <meta name="description" content="iReflection turns your iPad into a private handwritten journal. Write with Apple Pencil, track your streak, keep entries on-device — local-first by default, with optional iCloud sync across your iPads.">
+  <meta name="keywords" content="iReflection, iPad journal, handwriting journal, Apple Pencil, daily journal, private journal, on-device, iPadOS app, iCloud sync">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <link rel="canonical" href="https://shutasuzuki.com/iReflection/">
@@ -17,7 +17,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="iReflection — Daily Handwriting Journal for iPad">
   <meta property="og:site_name" content="iReflection">
-  <meta property="og:description" content="A private handwriting journal for iPad. Write with Apple Pencil, track your streak, and keep every entry on-device.">
+  <meta property="og:description" content="A private handwriting journal for iPad. Write with Apple Pencil, track your streak, keep entries local-first — with optional iCloud sync across your iPads.">
   <meta property="og:image" content="https://shutasuzuki.com/assets/og-preview.jpg">
 
   <script type="application/ld+json">
@@ -697,7 +697,7 @@
       <span class="dot" aria-hidden="true"></span>
       <span>No account</span>
       <span class="dot" aria-hidden="true"></span>
-      <span>No cloud</span>
+      <span>Local-first</span>
       <span class="dot" aria-hidden="true"></span>
       <span>No analytics</span>
     </div>
@@ -760,13 +760,13 @@
     <div class="privacy-inner">
       <p class="kicker reveal">Privacy</p>
       <h2 class="reveal" data-delay="1">Private by design.<br><span class="em">Not by policy.</span></h2>
-      <p class="reveal" data-delay="2">iReflection does not collect, transmit, or share any personal data. Everything you write stays on your iPad, in the app's sandboxed container. No account. No cloud. No analytics. No network requests. Ever.</p>
+      <p class="reveal" data-delay="2">iReflection is local-first by design. Your handwritten entries stay on your iPad, in the app's sandboxed container — the developer never sees them, and the app makes zero network requests by default. iCloud Backup is an optional, free feature you can enable in Settings to sync entries across your iPads via <em>your</em> private iCloud. Even then, entries flow directly to your iCloud account; the developer cannot read them. No analytics, no tracking, no third-party SDKs. Ever.</p>
       <div class="privacy-pills reveal" data-delay="3">
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> On-device only</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> Local-first by default</span>
         <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> No account</span>
         <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> No analytics</span>
         <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> No tracking</span>
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> No network calls</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 20 7"></polyline></svg> Optional iCloud sync</span>
       </div>
       <p style="margin-top: 28px; font-size: 15px;"><a href="./privacy-policy.html" style="color: #2997ff;">Read the full privacy policy &rsaquo;</a></p>
     </div>
@@ -812,7 +812,7 @@
         <div>
           <span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.7 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
           <h4 style="margin-top: 18px;">Exactly as much as you need.</h4>
-          <p>Appearance, canvas orientation, background, reminder time. Nothing more.</p>
+          <p>Appearance, canvas, background, reminders. Plus App Lock and optional iCloud Backup when you want them.</p>
         </div>
       </div>
 

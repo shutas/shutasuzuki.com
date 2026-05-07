@@ -160,27 +160,43 @@
     <header>
       <h1>Privacy Policy</h1>
       <p class="subtitle">iReflection — Daily Handwriting Journal</p>
-      <p class="subtitle">Last updated: April 21, 2026</p>
+      <p class="subtitle">Last updated: May 6, 2026</p>
     </header>
 
     <div class="summary">
-      <p><strong>TL;DR:</strong> iReflection does not collect, transmit, or share any personal data. Everything you write stays on your iPad.</p>
+      <p><strong>TL;DR:</strong> iReflection is local-first by default — every entry you write stays on your iPad unless you choose otherwise. If you enable the optional <strong>iCloud Backup</strong> feature (free as of 1.2.1), copies of your entries are sent to <em>your</em> private iCloud account using Apple's CloudKit so they sync across your iPads. The developer never sees this data. Your App Lock PIN is always device-only and is never synced, even when iCloud Backup is on.</p>
     </div>
 
     <h2>Data we collect</h2>
-    <p><strong>None.</strong> iReflection does not collect, request, or transmit any personal information, identifiers, usage metrics, diagnostics, or content of any kind.</p>
+    <p><strong>None.</strong> iReflection's developer does not collect, request, or receive any personal information, identifiers, usage metrics, diagnostics, or content of any kind. There is no analytics SDK, no crash reporter, no ad network, and no developer-operated backend server. If you choose to enable iCloud Backup (see below), your journal entries are sent to <em>your</em> private iCloud — Apple stores them on your behalf, and the developer has no ability to read them.</p>
 
     <h2>Data stored on your device</h2>
     <p>The app stores the following locally on your iPad, inside the app's sandboxed container managed by iPadOS:</p>
     <ul>
       <li>Your handwritten journal entries (stored as Apple PencilKit <code>.pkdrawing</code> files).</li>
       <li>Entry metadata such as the date each entry was created and modified.</li>
-      <li>Your in-app preferences (canvas background, orientation, appearance mode, reminder settings).</li>
+      <li>Your in-app preferences (canvas background, orientation, appearance mode, reminder settings, App Lock state).</li>
+      <li>If you set an App Lock PIN: a salted PBKDF2-HMAC-SHA-256 hash of the PIN, held in the iOS Keychain. The PIN itself is never stored, never synced, and never transmitted. <strong>This applies even if iCloud Backup is enabled — the PIN is intentionally device-only.</strong></li>
     </ul>
-    <p>This data is never transmitted off your device by iReflection. It is only accessible to you, and is included in your iCloud device backups and local iTunes/Finder backups according to your iPadOS settings — the app itself has no awareness of, or access to, those backups.</p>
+    <p>This data is never transmitted off your device by iReflection unless you explicitly enable iCloud Backup. It is included in your iPadOS device backups and local Finder/iTunes backups according to your iPadOS settings — the app itself has no awareness of, or access to, those system backups.</p>
+
+    <h2>Optional iCloud Backup</h2>
+    <p>iReflection 1.2.x introduces an <strong>optional</strong> iCloud Backup feature that you can enable in Settings → iCloud Backup. The feature is free for every user as of 1.2.1. <strong>It is off by default and never activates without your explicit action.</strong></p>
+    <p>When iCloud Backup is enabled:</p>
+    <ul>
+      <li>Each journal entry you write (its handwritten <code>.pkdrawing</code> bytes and the date metadata) is sent to <em>your</em> private iCloud database via Apple's CloudKit framework. The data is encrypted in transit using Apple-supplied TLS and stored in a CloudKit container scoped to <em>your</em> Apple ID.</li>
+      <li>Your other iPads signed into the same Apple ID can sync these entries automatically. Apple identifies your devices to each other; the developer is not involved in routing.</li>
+      <li><strong>The developer cannot read this data.</strong> CloudKit private databases are accessible only to you and Apple — the iReflection developer does not have, request, or receive access to any iCloud account.</li>
+      <li>If your iPad is offline, writes queue locally and sync automatically when network is restored. No data is lost.</li>
+      <li>If you turn iCloud Backup off, the app gives you two choices: (a) keep the cloud copy in your iCloud (in case you re-enable later), or (b) delete the cloud copy. <strong>In either case, your local entries on the device are preserved.</strong> Disabling iCloud Backup never deletes anything from your iPad.</li>
+      <li>Your App Lock PIN <strong>does not sync</strong> through iCloud Backup. The PIN remains in the iOS Keychain on the device where you set it, by design. If you set up a new iPad, you will be prompted to set a new PIN there.</li>
+      <li>If you sign out of iCloud, disable iCloud Drive, or run out of iCloud storage, the sync engine pauses and surfaces an error in Settings → iCloud Backup. Your local entries continue to work normally.</li>
+      <li>Apple's privacy policy and Apple ID terms govern Apple's handling of your iCloud data; see <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">apple.com/legal/privacy</a>.</li>
+    </ul>
+    <p><em>Note for users who purchased the original 1.2.0 release:</em> 1.2.0 introduced iCloud Backup behind a one-time $4.99 In-App Purchase. After feedback from Apple's App Review team, the IAP was retired in 1.2.1 and the feature was made free for everyone. The app no longer reads or stores anything from Apple's StoreKit framework.</p>
 
     <h2>Third-party services</h2>
-    <p><strong>None.</strong> iReflection does not integrate with any third-party SDKs, analytics providers, advertising networks, crash reporters, or cloud services. The app does not make network requests.</p>
+    <p><strong>None.</strong> iReflection does not integrate with any third-party SDKs, analytics providers, advertising networks, or crash reporters. CloudKit, used by the optional iCloud Backup feature described above, is <strong>Apple's own platform service</strong>, not a third-party service — it is part of iPadOS and operates under Apple's privacy policy. The app does not make any network requests outside of CloudKit when iCloud Backup is enabled, and makes no network requests at all when it is not.</p>
 
     <h2>Analytics</h2>
     <p><strong>None.</strong> We do not collect usage analytics, performance metrics, or any form of telemetry.</p>
@@ -192,7 +208,7 @@
     <p>iReflection is rated 4+ and does not collect any data from any user, including children. The app is safe for users of any age to use without parental consent to data collection (because there is no data collection).</p>
 
     <h2>Your rights</h2>
-    <p>Because iReflection never collects your data, there is nothing for us to export, correct, or delete on our end. You can delete all data created by iReflection at any time by deleting the app from your iPad, which removes the app's sandbox container and all its contents.</p>
+    <p>Because iReflection's developer never collects your data, there is nothing for the developer to export, correct, or delete. You can delete all local data created by iReflection at any time by deleting the app from your iPad, which removes the app's sandbox container and all its contents (including the App Lock PIN hash in the Keychain). If you have enabled iCloud Backup, you can additionally delete the iCloud copy in two ways: (1) Settings → iCloud Backup → Disable, then choose "Delete cloud copy"; or (2) on any of your iPads, sign in to <a href="https://www.icloud.com/" target="_blank" rel="noopener noreferrer">iCloud.com</a> and use Apple's iCloud storage management to remove the iReflection container's data. Deleting the iCloud copy never deletes the local copy on any of your iPads.</p>
 
     <h2>Permissions requested</h2>
     <p>iReflection requests the following iPadOS permissions, all of which are optional and used only for the feature they enable:</p>
