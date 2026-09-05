@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kokofocus — Privacy Policy</title>
+  <meta name="description" content="Privacy policy for kokofocus. The app collects no data, requests no permissions, and makes no network connections.">
+  <link rel="canonical" href="https://shutasuzuki.com/kokofocus/privacy-policy.html">
+  <link rel="shortcut icon" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/favicon.png">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --bg-elev: #f5f5f7;
+      --fg: #1d1d1f;
+      --muted: #6e6e73;
+      --rule: #d2d2d7;
+      --accent: #0071e3;
+      --nav-bg: #000000;
+      --nav-fg: #f5f5f7;
+      --nav-accent: #2997ff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 56px; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    body { padding-top: 48px; }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 22px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--nav-fg);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .nav-brand:hover { text-decoration: none; }
+    /* The mark is drawn in black; the nav bar is black, so invert it there.
+       Only the colour channels flip, so the transparency is preserved. */
+    .nav-brand img { width: 21px; height: 21px; filter: invert(1); }
+    .nav-actions { display: inline-flex; gap: 22px; align-items: center; }
+    .nav-actions a { color: var(--nav-fg); font-weight: 400; text-decoration: none; }
+    .nav-actions a:hover { color: var(--nav-accent); text-decoration: none; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+    header { border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 32px; }
+    h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .subtitle { color: var(--muted); font-size: 15px; margin: 0; }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin: 40px 0 12px; }
+    p, li { color: var(--fg); }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.92em;
+      background: var(--bg-elev);
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+    .summary {
+      background: transparent;
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      margin: 24px 0 32px;
+    }
+    .summary strong { color: var(--accent); }
+    footer {
+      border-top: 1px solid var(--rule);
+      padding-top: 24px;
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 640px) { .nav-actions { gap: 14px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="nav-brand" href="./">
+        <img src="../assets/kokofocus-mark-small.png" alt="">
+        <span>kokofocus</span>
+      </a>
+      <div class="nav-actions">
+        <a href="./support.html">Support</a>
+        <a href="./privacy-policy.html">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header>
+      <h1>Privacy Policy</h1>
+      <p class="subtitle">kokofocus — Point and draw on your screen</p>
+      <p class="subtitle">Last updated: September 5, 2026</p>
+    </header>
+
+    <div class="summary">
+      <p><strong>TL;DR:</strong> kokofocus collects nothing. It makes no network connections of any kind, so there is no mechanism by which anything could leave your Mac. It requests no system permissions — not Accessibility, not Screen Recording, not anything. A handful of preferences are stored on your own Mac and are removed when you delete the app.</p>
+    </div>
+
+    <h2>Data we collect</h2>
+    <p><strong>None.</strong> The developer does not collect, request, or receive any personal information, identifiers, usage metrics, diagnostics, or content of any kind. There is no analytics SDK, no crash reporter, no advertising network, and no developer-operated server. kokofocus has no account system and nothing to sign in to.</p>
+
+    <h2>Network activity</h2>
+    <p><strong>None.</strong> kokofocus makes no network connections. This is not a policy commitment that could quietly change in a future build — the app contains no networking code at all, and is distributed sandboxed without the entitlement that would permit outgoing connections. Nothing you point at, draw, or configure can leave your Mac, because there is no path by which it could.</p>
+
+    <h2>Data stored on your device</h2>
+    <p>kokofocus stores a small set of preferences locally, inside the app&rsquo;s sandboxed container managed by macOS:</p>
+    <ul>
+      <li>Your selected tool, colour, laser size and stroke weight.</li>
+      <li>Your interaction settings: which key opens the tool ring, the hold duration, and whether the double-tap shortcut is enabled.</li>
+      <li>Display preferences such as whether shapes fade automatically and after how long.</li>
+      <li>Whether you have seen the introduction.</li>
+    </ul>
+    <p>That is the complete list. Nothing you draw is saved — annotations exist only on screen and are gone when you clear them, turn the app off, or quit it. Nothing is written outside the app&rsquo;s container, and deleting the app removes all of it.</p>
+
+    <h2>Permissions requested</h2>
+    <p><strong>None.</strong> kokofocus does not request Accessibility access, Input Monitoring, Screen Recording, the camera, the microphone, your location, your contacts, or access to any of your files.</p>
+    <p>To do its job, the app reads a few pieces of system state once per display frame: where the cursor is, which modifier keys are held, whether a mouse button is down, and whether the Escape key is held. These are state queries, not event interception — no keystroke is recorded or stored, nothing is logged, and every keyboard shortcut in every other application continues to work normally. This is precisely why the app needs no Accessibility or Input Monitoring permission, and it is the only reason it looks at input at all.</p>
+
+    <h2>What your audience sees</h2>
+    <p>When you share your screen, participants see your annotations because those are drawn on your screen. kokofocus deliberately excludes its own controls — the tool ring and the tool indicator — from screen capture, so the mechanism stays private to you. None of this involves the developer, and no part of your screen is ever transmitted by kokofocus.</p>
+
+    <h2>Third-party services</h2>
+    <p><strong>None.</strong> kokofocus includes no third-party SDKs, frameworks, analytics providers, advertising networks, or crash reporters. It uses only Apple&rsquo;s own system frameworks, which ship as part of macOS.</p>
+
+    <h2>Tracking</h2>
+    <p><strong>None.</strong> kokofocus does not track you across apps or websites and uses no advertising identifier.</p>
+
+    <h2>Children&rsquo;s privacy</h2>
+    <p>kokofocus is rated 4+ and collects no data from any user, including children.</p>
+
+    <h2>Your rights</h2>
+    <p>Because the developer never receives your data, there is nothing to export, correct, or delete on your behalf. You can remove everything kokofocus has stored by deleting the app, which removes its sandbox container and all its contents. To reset preferences without uninstalling, quit kokofocus and delete <code>~/Library/Containers/com.shutas.kokofocus</code>.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, the updated version will be published at the same URL with a new &ldquo;Last updated&rdquo; date. Because kokofocus collects no data, any future change will at most clarify existing practice.</p>
+
+    <h2>Developer</h2>
+    <p>kokofocus is developed and maintained by Shuta Suzuki. For help, see the <a href="./support.html">support page</a> or write to <a href="mailto:shutas@umich.edu">shutas@umich.edu</a>.</p>
+
+    <footer>
+      <p>&copy; 2026 Shuta Suzuki. This policy applies to the kokofocus macOS app distributed via the Mac App Store.</p>
+    </footer>
+  </main>
+</body>
+</html>

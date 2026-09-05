@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kokofocus — Support</title>
+  <meta name="description" content="Help and answers for kokofocus, the Mac presentation pointer and annotation tool.">
+  <link rel="canonical" href="https://shutasuzuki.com/kokofocus/support.html">
+  <link rel="shortcut icon" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/favicon.png">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --bg-elev: #f5f5f7;
+      --fg: #1d1d1f;
+      --muted: #6e6e73;
+      --rule: #d2d2d7;
+      --accent: #0071e3;
+      --nav-bg: #000000;
+      --nav-fg: #f5f5f7;
+      --nav-accent: #2997ff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 56px; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    body { padding-top: 48px; }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 22px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--nav-fg);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .nav-brand:hover { text-decoration: none; }
+    /* The mark is drawn in black; the nav bar is black, so invert it there.
+       Only the colour channels flip, so the transparency is preserved. */
+    .nav-brand img { width: 21px; height: 21px; filter: invert(1); }
+    .nav-actions { display: inline-flex; gap: 22px; align-items: center; }
+    .nav-actions a { color: var(--nav-fg); font-weight: 400; text-decoration: none; }
+    .nav-actions a:hover { color: var(--nav-accent); text-decoration: none; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+    header { border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 32px; }
+    h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .subtitle { color: var(--muted); font-size: 15px; margin: 0; }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin: 40px 0 12px; }
+    h3 { font-size: 17px; font-weight: 600; margin: 28px 0 6px; }
+    p, li { color: var(--fg); }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.92em;
+      background: var(--bg-elev);
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+    .summary {
+      background: transparent;
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      margin: 24px 0 32px;
+    }
+    .summary strong { color: var(--accent); }
+    .steps {
+      background: var(--bg-elev);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 20px 0 28px;
+    }
+    .steps p { margin: 0 0 10px; }
+    .steps p:last-child { margin-bottom: 0; }
+    .key {
+      display: inline-block;
+      border: 1px solid var(--rule);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--bg);
+    }
+    footer {
+      border-top: 1px solid var(--rule);
+      padding-top: 24px;
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 640px) { .nav-actions { gap: 14px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="nav-brand" href="./">
+        <img src="../assets/kokofocus-mark-small.png" alt="">
+        <span>kokofocus</span>
+      </a>
+      <div class="nav-actions">
+        <a href="./support.html">Support</a>
+        <a href="./privacy-policy.html">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header>
+      <h1>Support</h1>
+      <p class="subtitle">kokofocus — Point and draw on your screen</p>
+      <p class="subtitle">Requires macOS 26 or later</p>
+    </header>
+
+    <div class="summary">
+      <p><strong>The whole app in one line:</strong> hold <span class="key">Control</span>, press and hold the mouse button, flick toward the tool you want, and let go.</p>
+    </div>
+
+    <h2>Getting started</h2>
+    <p>kokofocus lives in your menu bar — there is no window and no Dock icon. Click the ring icon and choose <strong>Turn On kokofocus</strong>. The icon fills in when it is on.</p>
+
+    <div class="steps">
+      <p><strong>Open the tool ring.</strong> Hold <span class="key">Control</span>, then press and hold the mouse button. A ring appears at your cursor.</p>
+      <p><strong>Choose a tool.</strong> Flick toward it and release. Release in the middle to cancel and change nothing.</p>
+      <p><strong>Turn it on or off.</strong> Double-tap <span class="key">Control</span>, or use the menu bar.</p>
+      <p><strong>Get out of anything.</strong> Press <span class="key">Esc</span>. Your screen goes back to normal immediately.</p>
+    </div>
+
+    <p>The ring has six tools on the outside — Pointer, Laser, Arrow, Line, Rectangle and Ellipse — and three actions on the inside: Undo, Redo and Clear. Actions fire and leave your tool alone. Clearing can be undone, so the trash is safe to use.</p>
+
+    <h2>Sharing your screen</h2>
+    <p><strong>Share your whole display</strong> and your annotations appear automatically to everyone on the call. Nothing to configure.</p>
+    <p><strong>Sharing a single application window will not show them.</strong> This is a limitation of macOS rather than of kokofocus: when a meeting app shares one window, macOS sends only that window&rsquo;s own contents, so no annotation drawn by any app can appear inside it. Share your entire screen instead.</p>
+    <p>Your audience never sees the tool ring itself — it is excluded from screen capture, so what people watch is your content with your annotations on it, and none of the machinery in between.</p>
+
+    <h2>Common questions</h2>
+
+    <h3>I selected Rectangle and now I cannot click anything</h3>
+    <p>That is expected while a drawing tool is selected: kokofocus takes the mouse so it can see your drag. Switch back to <strong>Pointer</strong> from the tool ring, or press <span class="key">Esc</span> to turn kokofocus off entirely. The menu bar always stays clickable, so you can also reach the menu and choose Pointer from there.</p>
+
+    <h3>Control-click stopped working</h3>
+    <p>While you hold the summoning key, clicks go to kokofocus rather than the app underneath — so that key&rsquo;s own click gesture is unavailable, and Control-click is secondary click. If you rely on it, choose a different key in <strong>Settings → General → Hold to open the menu</strong>. <span class="key">Fn</span> has no click gesture of its own and avoids the conflict entirely.</p>
+
+    <h3>Double-tapping Control does nothing, or does it by accident</h3>
+    <p>Two quick taps of <span class="key">Control</span>, with nothing else held, toggle kokofocus. Each tap must be brief and the pair close together. If another app uses the same gesture, turn it off in <strong>Settings → General</strong>.</p>
+
+    <h3>Nothing happens when I drag</h3>
+    <p>Check that kokofocus is on — the menu bar icon is filled when it is — and that a drawing tool is selected rather than Pointer or Laser. Those two deliberately pass every click through to the app underneath.</p>
+
+    <h3>Can I make my shapes disappear on their own?</h3>
+    <p>Yes. <strong>Settings → Tools → Fade shapes automatically</strong>, with a duration from 2 to 30 seconds. Shapes that fade this way do not use an undo step.</p>
+
+    <h3>The tool ring does not show up in my screenshots</h3>
+    <p>That is deliberate — it is excluded from every screenshot, recording and screen share so your audience only sees the result. To capture it for a tutorial, turn on <strong>Settings → Tools → Show kokofocus&rsquo;s controls in screen captures</strong>, then turn it off again afterwards. Note that it applies to live screen sharing too, so people on a call will see it as well.</p>
+
+    <h3>Does it need any permissions?</h3>
+    <p>No. kokofocus asks for nothing — no Accessibility, no Screen Recording, no sign-in — and it makes no network connections. See the <a href="./privacy-policy.html">privacy policy</a>.</p>
+
+    <h2>Resetting kokofocus</h2>
+    <p>Your preferences live in the app&rsquo;s own sandbox container and are removed when you delete the app. To reset them without uninstalling, quit kokofocus and delete:</p>
+    <p><code>~/Library/Containers/com.shutas.kokofocus</code></p>
+
+    <h2>Contact</h2>
+    <p>Questions, bugs or requests: <a href="mailto:shutas@umich.edu">shutas@umich.edu</a></p>
+
+    <footer>
+      <p>&copy; 2026 Shuta Suzuki. <a href="./">kokofocus</a> &middot; <a href="./privacy-policy.html">Privacy Policy</a> &middot; <a href="https://shutasuzuki.com">shutasuzuki.com</a></p>
+    </footer>
+  </main>
+</body>
+</html>

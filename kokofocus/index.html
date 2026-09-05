@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kokofocus — Point and draw on your screen</title>
+  <meta name="description" content="kokofocus puts a laser pointer and four shapes on your Mac screen, reached with one gesture. Try the whole thing right here in your browser.">
+  <meta name="keywords" content="kokofocus, Mac presentation tool, screen annotation, laser pointer, macOS, screen sharing, annotate, teach, demo">
+  <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="https://shutasuzuki.com/kokofocus/">
+  <link rel="shortcut icon" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/favicon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:url" content="https://shutasuzuki.com/kokofocus/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="kokofocus — Point and draw on your screen">
+  <meta property="og:site_name" content="kokofocus">
+  <meta property="og:description" content="A laser pointer and four shapes for your Mac, reached with one gesture. Try the whole thing right here in your browser.">
+  <meta property="og:image" content="https://shutasuzuki.com/assets/og-preview.jpg">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "kokofocus",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "macOS 26+",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Person", "name": "Shuta Suzuki", "url": "https://shutasuzuki.com" },
+      "url": "https://shutasuzuki.com/kokofocus/"
+    }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --bg-elev: #f5f5f7;
+      --fg: #1d1d1f;
+      --fg-muted: #6e6e73;
+      --rule: #d2d2d7;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      /* Lighter than the link blue — it is a highlighter stroke, not a control. */
+      --underline: #6bb0f5;
+      --shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.18);
+      --nav-bg: #000000;
+      --nav-fg: #f5f5f7;
+      --nav-accent: #2997ff;
+      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+      /* The simulated slide inside the stage. */
+      --slide-bg: #ffffff;
+      --slide-fg: #1d1d1f;
+      --slide-muted: #86868b;
+      --slide-bar: #dcdce1;
+      --slide-accent: #48484e;
+      --frame-bg: #e8e8ed;
+
+      /* Menu chrome, mirroring the app's Liquid Glass plate. */
+      --ring-plate: rgba(245, 245, 247, 0.72);
+      --ring-edge: rgba(0, 0, 0, 0.08);
+      --ring-item: rgba(255, 255, 255, 0.86);
+      --ring-item-edge: rgba(0, 0, 0, 0.10);
+      --ring-fg: #1d1d1f;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.47;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    body { padding-top: 48px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      margin: -1px; padding: 0; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ---------- Fixed nav ---------- */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 22px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--nav-fg);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .nav-brand:hover { text-decoration: none; }
+    /* The mark is drawn in black; the nav bar is black, so invert it there.
+       Only the colour channels flip, so the transparency is preserved. */
+    .nav-brand img { width: 21px; height: 21px; filter: invert(1); }
+    .nav-actions { display: inline-flex; gap: 22px; align-items: center; }
+    .nav-actions a { color: var(--nav-fg); font-weight: 400; }
+    .nav-actions a:hover { color: var(--nav-accent); text-decoration: none; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      padding: 72px 22px 8px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-aura {
+      position: absolute;
+      inset: -10% -10% auto -10%;
+      height: 90%;
+      background:
+        radial-gradient(60% 50% at 50% 30%, rgba(41, 151, 255, 0.12), transparent 70%),
+        radial-gradient(40% 40% at 20% 60%, rgba(255, 149, 0, 0.06), transparent 70%),
+        radial-gradient(40% 40% at 80% 60%, rgba(175, 82, 222, 0.08), transparent 70%);
+      filter: blur(6px);
+      z-index: -1;
+      animation: aura-drift 18s ease-in-out infinite alternate;
+    }
+    @keyframes aura-drift {
+      from { transform: translate3d(-1%, 0, 0) scale(1); }
+      to   { transform: translate3d(1%, -1%, 0) scale(1.03); }
+    }
+    .hero-icon {
+      width: 104px; height: 104px;
+      margin: 0 auto 26px;
+      animation: icon-float 6s ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes icon-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+    .eyebrow { font-size: 15px; font-weight: 500; color: var(--accent); margin: 0 0 14px; }
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 92px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin: 0 0 20px;
+      background: linear-gradient(180deg, var(--fg) 0%, var(--fg) 60%, var(--fg-muted) 140%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-tagline-wrap { position: relative; display: inline-block; margin: 0 auto 20px; }
+    .hero h2 {
+      font-size: clamp(22px, 2.6vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .hero-underline {
+      position: absolute;
+      left: 50%; bottom: -14px;
+      width: min(360px, 80%);
+      transform: translateX(-50%);
+      height: 22px;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .hero-underline path {
+      fill: none;
+      stroke: var(--underline);
+      stroke-width: 3.4;
+      stroke-linecap: round;
+      stroke-dasharray: 420;
+      stroke-dashoffset: 420;
+      animation: ink-draw 1.6s 0.6s var(--ease) forwards;
+      opacity: 0;
+    }
+    @keyframes ink-draw {
+      0%   { stroke-dashoffset: 420; opacity: 0; }
+      5%   { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+
+    /* ---------- Try section ---------- */
+    .try { max-width: 1080px; margin: 0 auto; padding: 40px 22px 96px; }
+
+    /* A single nudge to get started. Everything else is discoverable by doing. */
+    .note {
+      max-width: 640px;
+      margin: 0 auto 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 13px 22px;
+      border-radius: 14px;
+      background: var(--bg-elev);
+      border: 1px solid var(--rule);
+      font-size: 16px;
+      line-height: 1.45;
+      text-align: left;
+    }
+    .note svg { flex: 0 0 auto; color: var(--accent); }
+    @media (max-width: 640px) {
+      .note { font-size: 15px; padding: 13px 16px; }
+    }
+
+    /* Stage: a fake presentation window you can draw on */
+    .frame {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 16px;
+      background: var(--frame-bg);
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .frame-bar {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .frame-bar .light { width: 11px; height: 11px; border-radius: 50%; background: var(--slide-bar); }
+    .frame-bar .light:nth-child(1) { background: #ff5f57; }
+    .frame-bar .light:nth-child(2) { background: #febc2e; }
+    .frame-bar .light:nth-child(3) { background: #28c840; }
+    .frame-title {
+      flex: 1 1 auto;
+      text-align: center;
+      font-size: 12px;
+      color: var(--fg-muted);
+      margin-right: 45px;
+    }
+
+    .stage {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: var(--slide-bg);
+      touch-action: none;
+      cursor: crosshair;
+      user-select: none;
+      -webkit-user-select: none;
+      overflow: hidden;
+    }
+    .stage.tool-pointer, .stage.tool-laser { cursor: default; }
+    .stage:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+    .stage .slide { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* Command ring */
+    .ring {
+      position: absolute;
+      left: 0; top: 0;
+      width: 0; height: 0;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.14s var(--ease), transform 0.22s var(--ease);
+    }
+    .ring.is-open { opacity: 1; visibility: visible; }
+    .ring-plate {
+      position: absolute;
+      left: 50%; top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--ring-plate);
+      border: 1px solid var(--ring-edge);
+      backdrop-filter: saturate(180%) blur(24px);
+      -webkit-backdrop-filter: saturate(180%) blur(24px);
+      box-shadow: 0 22px 50px -18px rgba(0, 0, 0, 0.4);
+    }
+    .ring-cancel {
+      position: absolute;
+      left: 50%; top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      border: 1.5px dashed var(--ring-item-edge);
+      transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+    }
+    .ring-cancel.is-hot {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+    }
+    .ring-item {
+      position: absolute;
+      left: 50%; top: 50%;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ring-item);
+      border: 1px solid var(--ring-item-edge);
+      color: var(--ring-fg);
+      box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition:
+        opacity 0.18s var(--ease),
+        transform 0.24s var(--ease),
+        background 0.16s var(--ease),
+        border-color 0.16s var(--ease),
+        color 0.16s var(--ease);
+    }
+    .ring.is-open .ring-item { opacity: 1; }
+    /* The active tool fills entirely — the app's way of showing where you already are. */
+    .ring-item.is-current {
+      background: var(--accent);
+      border-color: transparent;
+      color: #fff;
+    }
+    /* Highlighting zooms the icon inside a frame that never changes size, so neighbouring
+       items can never collide. Same rule as MenuGeometry.highlightIconScale. */
+    .ring-item.is-hot { border-color: var(--accent); }
+    .ring-item.is-hot:not(.is-current) {
+      background: color-mix(in srgb, var(--accent) 16%, var(--ring-item));
+      color: var(--accent);
+    }
+    .ring-item svg { transition: transform 0.16s var(--ease); }
+    .ring-item.is-hot svg { transform: scale(1.32); }
+
+    /* Tool flash, mirroring the app's presenter-only status pill */
+    .flash {
+      position: absolute;
+      left: 0; top: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px 9px 12px;
+      border-radius: 980px;
+      background: var(--ring-plate);
+      border: 1px solid var(--ring-edge);
+      backdrop-filter: saturate(180%) blur(24px);
+      -webkit-backdrop-filter: saturate(180%) blur(24px);
+      color: var(--ring-fg);
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      transform: translate(-50%, -50%) scale(0.94);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+    }
+    .flash.is-on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .flash svg { width: 17px; height: 17px; }
+
+    /* Control strip under the stage */
+    .strip {
+      max-width: 1000px;
+      margin: 18px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: var(--fg-muted);
+    }
+    .strip-group { display: inline-flex; align-items: center; gap: 10px; }
+    .swatches { display: inline-flex; gap: 8px; }
+    .swatch {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.16s var(--ease);
+    }
+    .swatch::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--c);
+    }
+    .swatch:hover { transform: scale(1.12); }
+    .swatch[aria-pressed="true"] { border-color: var(--c); }
+    .strip-tool { color: var(--fg); font-weight: 500; }
+    .btn-quiet {
+      font: inherit;
+      font-size: 14px;
+      color: var(--accent);
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+    kbd {
+      display: inline-block;
+      border: 1px solid var(--rule);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: 0 5px;
+      font: inherit;
+      font-size: 12px;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .fineprint {
+      max-width: 720px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+    .facts {
+      margin: 18px 0 0;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--fg-muted);
+    }
+    .facts .dot {
+      display: inline-block; width: 3px; height: 3px;
+      background: var(--fg-muted); border-radius: 50%;
+      align-self: center;
+    }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--rule); padding: 36px 22px; color: var(--fg-muted); font-size: 13px; }
+    .foot-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .foot-inner a { color: var(--fg-muted); }
+    .foot-inner a:hover { color: var(--fg); text-decoration: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001s !important;
+      }
+      .hero-icon, .hero-aura { animation: none; }
+      .hero-underline path { stroke-dasharray: none; stroke-dashoffset: 0; opacity: 1; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 48px 22px 8px; }
+      .try { padding: 28px 16px 72px; }
+      .nav-actions { gap: 14px; }
+      .strip { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Icon sprite. Referenced with <use>, so no markup is ever built from strings. -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-pointer" viewBox="0 0 24 24">
+        <polygon points="6,2 6,19 10.3,14.9 13.1,20.6 15.6,19.4 12.9,13.9 18.4,13.9" fill="currentColor"/>
+      </symbol>
+      <symbol id="i-laser" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <circle cx="12" cy="12" r="8.6"/>
+        <circle cx="12" cy="12" r="3.4" fill="currentColor" stroke="none"/>
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5.6 18.4 L17.6 6.4"/>
+        <path d="M17.6 6.4 H11.7 M17.6 6.4 V12.3"/>
+      </symbol>
+      <symbol id="i-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+        <path d="M5.6 18.4 L18.4 5.6"/>
+      </symbol>
+      <symbol id="i-rectangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+        <rect x="3.6" y="6.2" width="16.8" height="11.6" rx="2.4"/>
+      </symbol>
+      <symbol id="i-ellipse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+        <circle cx="12" cy="12" r="8.4"/>
+      </symbol>
+      <symbol id="i-undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11.8 4.8 L8.4 8.2 L11.8 11.6"/>
+        <path d="M8.4 8.2 H14.6 A4.6 4.6 0 0 1 14.6 17.4 H8.6"/>
+      </symbol>
+      <symbol id="i-redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12.2 4.8 L15.6 8.2 L12.2 11.6"/>
+        <path d="M15.6 8.2 H9.4 A4.6 4.6 0 0 0 9.4 17.4 H15.4"/>
+      </symbol>
+      <symbol id="i-clear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.6 6.6 H19.4"/>
+        <path d="M9.6 6.6 V5 a1.2 1.2 0 0 1 1.2-1.2 h2.4 a1.2 1.2 0 0 1 1.2 1.2 v1.6"/>
+        <path d="M6.6 6.6 l0.9 12.1 a1.6 1.6 0 0 0 1.6 1.5 h5.8 a1.6 1.6 0 0 0 1.6-1.5 l0.9-12.1"/>
+        <path d="M10.4 10.2 v6.2 M13.6 10.2 v6.2"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="nav-brand" href="./">
+        <img src="../assets/kokofocus-mark-small.png" alt="">
+        <span>kokofocus</span>
+      </a>
+      <div class="nav-actions">
+        <a href="./support.html">Support</a>
+        <a href="./privacy-policy.html">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-aura" aria-hidden="true"></div>
+    <img class="hero-icon" src="../assets/kokofocus-mark.png" alt="kokofocus logo" width="104" height="104">
+    <p class="eyebrow">Coming to the Mac App Store</p>
+    <h1>kokofocus</h1>
+    <div class="hero-tagline-wrap">
+      <h2>Point and draw on your screen.</h2>
+      <svg class="hero-underline" viewBox="0 0 360 22" aria-hidden="true" preserveAspectRatio="none">
+        <path d="M6 15 C 70 6, 150 6, 210 12 S 320 18, 354 9" />
+      </svg>
+    </div>
+  </header>
+
+  <section class="try" id="try" aria-labelledby="tryHeading">
+    <h2 class="visually-hidden" id="tryHeading">Try kokofocus in your browser</h2>
+    <p class="note">
+      <svg width="19" height="19" aria-hidden="true"><use href="#i-pointer"></use></svg>
+      <span>Press and hold on the slide, flick out to a tool, and let go. Then drag to draw.</span>
+    </p>
+
+    <div class="frame">
+      <div class="frame-bar" aria-hidden="true">
+        <span class="light"></span><span class="light"></span><span class="light"></span>
+        <span class="frame-title">Q3 Review — Keynote</span>
+      </div>
+      <div class="stage tool-laser" id="stage" tabindex="0"
+           role="application"
+           aria-label="Interactive kokofocus demo. Press and hold to open the tool ring, drag to draw.">
+        <svg class="slide" viewBox="0 0 1000 625" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <rect width="1000" height="625" fill="var(--slide-bg)"/>
+          <text x="80" y="112" fill="var(--slide-fg)" font-size="46" font-weight="700"
+                font-family="-apple-system, BlinkMacSystemFont, sans-serif" letter-spacing="-1">Q3 performance</text>
+          <text x="80" y="152" fill="var(--slide-muted)" font-size="21"
+                font-family="-apple-system, BlinkMacSystemFont, sans-serif">Revenue by region, in millions</text>
+          <line x1="80" y1="500" x2="920" y2="500" stroke="var(--slide-bar)" stroke-width="2"/>
+          <g>
+            <rect x="120" y="356" width="96" height="144" rx="6" fill="var(--slide-bar)"/>
+            <rect x="288" y="300" width="96" height="200" rx="6" fill="var(--slide-bar)"/>
+            <rect x="456" y="222" width="96" height="278" rx="6" fill="var(--slide-accent)"/>
+            <rect x="624" y="392" width="96" height="108" rx="6" fill="var(--slide-bar)"/>
+            <rect x="792" y="428" width="96" height="72"  rx="6" fill="var(--slide-bar)"/>
+          </g>
+          <g fill="var(--slide-muted)" font-size="19" text-anchor="middle"
+             font-family="-apple-system, BlinkMacSystemFont, sans-serif">
+            <text x="168" y="533">Americas</text>
+            <text x="336" y="533">EMEA</text>
+            <text x="504" y="533">APAC</text>
+            <text x="672" y="533">Japan</text>
+            <text x="840" y="533">Other</text>
+          </g>
+          <text x="504" y="200" fill="var(--slide-accent)" font-size="20" font-weight="600" text-anchor="middle"
+                font-family="-apple-system, BlinkMacSystemFont, sans-serif">+38%</text>
+        </svg>
+        <canvas id="ink"></canvas>
+        <div class="ring" id="ring" aria-hidden="true">
+          <div class="ring-plate" id="ringPlate"></div>
+          <div class="ring-cancel" id="ringCancel"></div>
+        </div>
+        <div class="flash" id="flash" aria-hidden="true">
+          <svg width="17" height="17" aria-hidden="true"><use href="#i-laser" id="flashIcon"></use></svg>
+          <span id="flashText">Laser</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="strip-group">
+        <span>Colour</span>
+        <span class="swatches" id="swatches" role="group" aria-label="Ink colour"></span>
+      </div>
+      <div class="strip-group">
+        <span>Tool</span><span class="strip-tool" id="toolName">Laser</span>
+      </div>
+      <div class="strip-group">
+        <span><kbd>Esc</kbd> clears &middot; <kbd>⌘Z</kbd> undo</span>
+        <button class="btn-quiet" id="clearBtn" type="button">Clear</button>
+      </div>
+    </div>
+
+    <p class="fineprint">
+      This is the real thing, ported to the browser — the same ring, the same spring on the laser,
+      the same snapping. In the app you hold <kbd>Control</kbd> before pressing, so ordinary clicks
+      still reach your slides, and it draws over any app on every display.
+    </p>
+    <p class="facts">
+      <span>macOS 26+</span><span class="dot"></span>
+      <span>No permissions</span><span class="dot"></span>
+      <span>No network</span><span class="dot"></span>
+      <span>English and Japanese</span><span class="dot"></span>
+      <span>Free</span>
+    </p>
+  </section>
+
+  <footer>
+    <div class="foot-inner">
+      <span>&copy; 2026 Shuta Suzuki. macOS is a trademark of Apple Inc.</span>
+      <span>
+        <a href="./support.html">Support</a>
+        &nbsp;&middot;&nbsp;
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:shutas@umich.edu">Contact</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://shutasuzuki.com">shutasuzuki.com</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var stage = document.getElementById('stage');
+    var canvas = document.getElementById('ink');
+    if (!stage || !canvas || !canvas.getContext) { return; }
+    var ctx = canvas.getContext('2d');
+
+    var ring = document.getElementById('ring');
+    var ringPlate = document.getElementById('ringPlate');
+    var ringCancel = document.getElementById('ringCancel');
+    var flash = document.getElementById('flash');
+    var flashIcon = document.getElementById('flashIcon');
+    var flashText = document.getElementById('flashText');
+    var toolName = document.getElementById('toolName');
+    var swatchBox = document.getElementById('swatches');
+    var clearBtn = document.getElementById('clearBtn');
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------------------------------------------------------------------
+       Constants lifted from the app so the demo cannot drift from the product.
+       MenuGeometry.swift, Snapping.swift, LaserModel.swift, Preferences.swift.
+       --------------------------------------------------------------------- */
+    var GEO = {
+      cancelRadius: 26,
+      innerOuterRadius: 73,
+      outerOuterRadius: 132,
+      innerIconRadius: 48,
+      outerIconRadius: 106,
+      innerButtonSize: 36,
+      outerButtonSize: 52
+    };
+    var HOLD_THRESHOLD = 250;      // Preferences.holdThreshold, in ms
+    var HOLD_TOLERANCE = 4;        // AppController.holdMovementTolerance, in points
+    var SNAP_ANGLE_STEP = 15;      // Snapping.angleToleranceDegrees applies to these steps
+    var SNAP_ANGLE_TOL = 4;
+    var SNAP_ASPECT_TOL = 0.06;
+    var LASER_RESPONSE = 0.08;     // LaserModel.response
+    var TRAIL_HALF_LIFE = 0.12;
+    var MAX_SAMPLE_AGE = 0.45;
+    var MAX_SAMPLES = 90;
+    var IDLE_DELAY = 1.5;
+    var IDLE_FADE = 0.6;
+    var LASER_CORE = 20;           // LaserSize.medium, in points
+    var STROKE_WEIGHT = 4;         // StrokeWeight.medium
+    var ARROW_HEAD = 18;
+
+    var TOOLS = [
+      { id: 'pointer',   label: 'Pointer',   icon: '#i-pointer',   draws: false },
+      { id: 'laser',     label: 'Laser',     icon: '#i-laser',     draws: false },
+      { id: 'arrow',     label: 'Arrow',     icon: '#i-arrow',     draws: true  },
+      { id: 'line',      label: 'Line',      icon: '#i-line',      draws: true  },
+      { id: 'rectangle', label: 'Rectangle', icon: '#i-rectangle', draws: true  },
+      { id: 'ellipse',   label: 'Ellipse',   icon: '#i-ellipse',   draws: true  }
+    ];
+    // MenuGeometry.actionOrder — redo, clear, undo — centred at 60°, 180°, 300°.
+    var ACTIONS = [
+      { id: 'redo',  label: 'Redo',  icon: '#i-redo'  },
+      { id: 'clear', label: 'Clear', icon: '#i-clear' },
+      { id: 'undo',  label: 'Undo',  icon: '#i-undo'  }
+    ];
+    var COLORS = [
+      { id: 'red',    core: '#FFF0E8', falloff: '#FF453A' },
+      { id: 'orange', core: '#FFF8E8', falloff: '#FF9F0A' },
+      { id: 'green',  core: '#E8FFF4', falloff: '#30D158' },
+      { id: 'blue',   core: '#E8F4FF', falloff: '#0A84FF' },
+      { id: 'purple', core: '#F8E8FF', falloff: '#BF5AF2' }
+    ];
+
+    function toolById(id) {
+      for (var i = 0; i < TOOLS.length; i++) { if (TOOLS[i].id === id) { return TOOLS[i]; } }
+      return TOOLS[0];
+    }
+
+    /* ---------------------------------------------------------------------
+       State
+       --------------------------------------------------------------------- */
+    var state = {
+      tool: 'laser',
+      color: COLORS[0],
+      shapes: [],
+      history: [],   // whole snapshots, exactly like ShapeStore
+      future: [],
+      draft: null,
+      menu: null,    // { x, y, selection }
+      hold: null,    // { x, y, at, moved }
+      pointerInside: false,
+      cursor: { x: 0, y: 0 }
+    };
+
+    var laser = {
+      pos: { x: 0, y: 0 },
+      vel: { x: 0, y: 0 },
+      samples: [],
+      lastTarget: { x: 0, y: 0 },
+      lastMovedAt: 0,
+      presence: 0,
+      started: false
+    };
+
+    var scale = 1;   // menu scale, so the ring fits small stages
+    var W = 0, H = 0;
+
+    /* ---------------------------------------------------------------------
+       Canvas sizing
+       --------------------------------------------------------------------- */
+    function resize() {
+      var rect = stage.getBoundingClientRect();
+      if (!rect.width || !rect.height) { return; }
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width; H = rect.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      scale = Math.max(0.58, Math.min(1, W / 980));
+      layoutRing();
+    }
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(stage);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+
+    /* ---------------------------------------------------------------------
+       Ring construction. Built once; positions refresh with the stage size.
+       --------------------------------------------------------------------- */
+    var ringItems = [];
+
+    function makeItem(spec, kind) {
+      var btn = document.createElement('div');
+      btn.className = 'ring-item ' + kind;
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttribute('href', spec.icon);
+      svg.appendChild(use);
+      btn.appendChild(svg);
+      ring.appendChild(btn);
+      ringItems.push({ el: btn, svg: svg, kind: kind, id: spec.id });
+      return btn;
+    }
+
+    TOOLS.forEach(function (t) { makeItem(t, 'outer'); });
+    ACTIONS.forEach(function (a) { makeItem(a, 'inner'); });
+
+    // MenuGeometry.iconOffset — angles run clockwise from twelve o'clock.
+    function iconOffset(deg, radius) {
+      var rad = deg * Math.PI / 180;
+      return { x: Math.sin(rad) * radius, y: -Math.cos(rad) * radius };
+    }
+
+    function layoutRing() {
+      var plateSize = GEO.outerOuterRadius * 2 * scale + 16;
+      ringPlate.style.width = plateSize + 'px';
+      ringPlate.style.height = plateSize + 'px';
+      ringCancel.style.width = GEO.cancelRadius * 2 * scale + 'px';
+      ringCancel.style.height = GEO.cancelRadius * 2 * scale + 'px';
+
+      ringItems.forEach(function (item, i) {
+        var outer = item.kind === 'outer';
+        var idx = outer ? i : i - TOOLS.length;
+        var deg = outer ? idx * 60 : idx * 120 + 60;
+        var radius = (outer ? GEO.outerIconRadius : GEO.innerIconRadius) * scale;
+        var size = (outer ? GEO.outerButtonSize : GEO.innerButtonSize) * scale;
+        var off = iconOffset(deg, radius);
+        item.el.style.width = size + 'px';
+        item.el.style.height = size + 'px';
+        item.el.style.transform =
+          'translate(calc(-50% + ' + off.x.toFixed(1) + 'px), calc(-50% + ' + off.y.toFixed(1) + 'px))';
+        var icon = size * (outer ? 0.46 : 0.5);
+        item.svg.setAttribute('width', icon.toFixed(1));
+        item.svg.setAttribute('height', icon.toFixed(1));
+      });
+    }
+
+    /* ---------------------------------------------------------------------
+       Menu hit-testing — direction and distance, never a drawn wedge.
+       Mirrors MenuGeometry.selection(at:center:).
+       --------------------------------------------------------------------- */
+    function clockwiseAngle(p, c) {
+      var deg = Math.atan2(p.x - c.x, c.y - p.y) * 180 / Math.PI;
+      return deg < 0 ? deg + 360 : deg;
+    }
+
+    function selectionAt(p, c) {
+      var d = Math.hypot(p.x - c.x, p.y - c.y);
+      if (d <= GEO.cancelRadius * scale) { return { kind: 'cancel' }; }
+      var a = clockwiseAngle(p, c);
+      if (d <= GEO.innerOuterRadius * scale) {
+        return { kind: 'action', id: ACTIONS[Math.floor(a / 120) % ACTIONS.length].id };
+      }
+      return { kind: 'tool', id: TOOLS[Math.floor(((a + 30) % 360) / 60) % TOOLS.length].id };
+    }
+
+    // MenuGeometry.clampedCenter — keeps every wedge reachable near an edge.
+    function clampedCenter(x, y) {
+      var r = (GEO.outerOuterRadius + 8) * scale;
+      if (W < r * 2 || H < r * 2) { return { x: W / 2, y: H / 2 }; }
+      return { x: Math.min(Math.max(x, r), W - r), y: Math.min(Math.max(y, r), H - r) };
+    }
+
+    function openMenu(x, y) {
+      var c = clampedCenter(x, y);
+      state.menu = { x: c.x, y: c.y, selection: { kind: 'cancel' } };
+      var at = 'translate(' + c.x + 'px, ' + c.y + 'px) ';
+      // Bloom outward from the cursor. Scaling the whole ring keeps the plate and the
+      // items locked together, so nothing slides relative to anything else.
+      ring.style.transform = at + 'scale(0.86)';
+      ring.classList.add('is-open');
+      window.requestAnimationFrame(function () {
+        ring.style.transform = at + 'scale(1)';
+      });
+      paintRing();
+    }
+
+    function closeMenu() {
+      state.menu = null;
+      ring.classList.remove('is-open');
+    }
+
+    function paintRing() {
+      var sel = state.menu ? state.menu.selection : { kind: 'cancel' };
+      ringCancel.classList.toggle('is-hot', sel.kind === 'cancel');
+      ringItems.forEach(function (item) {
+        var isTool = item.kind === 'outer';
+        var hot = (isTool && sel.kind === 'tool' && sel.id === item.id) ||
+                  (!isTool && sel.kind === 'action' && sel.id === item.id);
+        item.el.classList.toggle('is-hot', hot);
+        item.el.classList.toggle('is-current', isTool && item.id === state.tool);
+      });
+    }
+
+    /* ---------------------------------------------------------------------
+       Tool flash — the app's presenter-only confirmation pill
+       --------------------------------------------------------------------- */
+    var flashTimer = null;
+    function showFlash(spec, x, y) {
+      flashIcon.setAttribute('href', spec.icon);
+      flashText.textContent = spec.label;
+      flash.style.left = x + 'px';
+      flash.style.top = Math.max(30, y - GEO.outerOuterRadius * scale - 26) + 'px';
+      flash.classList.add('is-on');
+      window.clearTimeout(flashTimer);
+      flashTimer = window.setTimeout(function () { flash.classList.remove('is-on'); }, 900);
+    }
+
+    function setTool(id, x, y) {
+      state.tool = id;
+      var spec = toolById(id);
+      toolName.textContent = spec.label;
+      stage.className = 'stage tool-' + id;
+      if (typeof x === 'number') { showFlash(spec, x, y); }
+    }
+
+    /* ---------------------------------------------------------------------
+       Shape store — snapshots, so Clear is undoable for free
+       --------------------------------------------------------------------- */
+    function snapshot() {
+      state.history.push(state.shapes.slice());
+      if (state.history.length > 40) { state.history.shift(); }
+      state.future.length = 0;
+    }
+    function commit(shape) { snapshot(); state.shapes.push(shape); }
+    function undo() {
+      if (!state.history.length) { return; }
+      state.future.push(state.shapes.slice());
+      state.shapes = state.history.pop();
+    }
+    function redo() {
+      if (!state.future.length) { return; }
+      state.history.push(state.shapes.slice());
+      state.shapes = state.future.pop();
+    }
+    function clearAll() {
+      if (!state.shapes.length) { return; }
+      snapshot();
+      state.shapes = [];
+    }
+
+    /* ---------------------------------------------------------------------
+       Snapping — Snapping.swift
+       --------------------------------------------------------------------- */
+    function snapAngle(s, e) {
+      var dx = e.x - s.x, dy = e.y - s.y;
+      var len = Math.hypot(dx, dy);
+      if (len <= 1) { return e; }
+      var deg = Math.atan2(dy, dx) * 180 / Math.PI;
+      var nearest = Math.round(deg / SNAP_ANGLE_STEP) * SNAP_ANGLE_STEP;
+      if (Math.abs(deg - nearest) > SNAP_ANGLE_TOL) { return e; }
+      var rad = nearest * Math.PI / 180;
+      return { x: s.x + Math.cos(rad) * len, y: s.y + Math.sin(rad) * len };
+    }
+    function snapAspect(s, e) {
+      var dx = e.x - s.x, dy = e.y - s.y;
+      var w = Math.abs(dx), h = Math.abs(dy);
+      if (w <= 1 || h <= 1) { return e; }
+      var ratio = w / h;
+      if (Math.abs(ratio - 1) > SNAP_ASPECT_TOL) { return e; }
+      var side = (w + h) / 2;
+      return { x: s.x + Math.sign(dx) * side, y: s.y + Math.sign(dy) * side };
+    }
+    function applySnap(kind, s, e) {
+      if (kind === 'arrow' || kind === 'line') { return snapAngle(s, e); }
+      if (kind === 'rectangle' || kind === 'ellipse') { return snapAspect(s, e); }
+      return e;
+    }
+
+    /* ---------------------------------------------------------------------
+       Laser physics — LaserModel.integrate, semi-implicit Euler in substeps
+       --------------------------------------------------------------------- */
+    function laserUpdate(target, now, dt) {
+      if (!laser.started) {
+        laser.pos = { x: target.x, y: target.y };
+        laser.vel = { x: 0, y: 0 };
+        laser.samples = [{ x: target.x, y: target.y, t: now }];
+        laser.lastTarget = { x: target.x, y: target.y };
+        laser.lastMovedAt = now;
+        laser.presence = 1;
+        laser.started = true;
+        return;
+      }
+      if (Math.hypot(target.x - laser.lastTarget.x, target.y - laser.lastTarget.y) > 0.5) {
+        laser.lastMovedAt = now;
+        laser.lastTarget = { x: target.x, y: target.y };
+      }
+
+      if (reduceMotion) {
+        laser.pos = { x: target.x, y: target.y };
+        laser.samples = [{ x: target.x, y: target.y, t: now }];
+      } else {
+        var omega = 2 * Math.PI / LASER_RESPONSE;
+        var stiffness = omega * omega;
+        var damping = 2 * omega;
+        var steps = Math.max(1, Math.min(16, Math.ceil(dt / (1 / 240))));
+        var step = dt / steps;
+        for (var i = 0; i < steps; i++) {
+          var ax = stiffness * (target.x - laser.pos.x) - damping * laser.vel.x;
+          var ay = stiffness * (target.y - laser.pos.y) - damping * laser.vel.y;
+          laser.vel.x += ax * step;
+          laser.vel.y += ay * step;
+          laser.pos.x += laser.vel.x * step;
+          laser.pos.y += laser.vel.y * step;
+          laser.samples.push({ x: laser.pos.x, y: laser.pos.y, t: now - dt + step * (i + 1) });
+        }
+        while (laser.samples.length && now - laser.samples[0].t > MAX_SAMPLE_AGE) { laser.samples.shift(); }
+        if (laser.samples.length > MAX_SAMPLES) {
+          laser.samples.splice(0, laser.samples.length - MAX_SAMPLES);
+        }
+      }
+
+      var idle = now - laser.lastMovedAt;
+      var target01 = idle < IDLE_DELAY ? 1 : Math.max(0, 1 - (idle - IDLE_DELAY) / IDLE_FADE);
+      if (!state.pointerInside) { target01 = 0; }
+      // Ease toward the target so leaving and re-entering the stage does not snap.
+      laser.presence += (target01 - laser.presence) * Math.min(1, dt * 9);
+    }
+
+    /* ---------------------------------------------------------------------
+       Painting
+       --------------------------------------------------------------------- */
+    function strokeShape(shape, alpha) {
+      var s = shape.start, e = shape.end;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = shape.color;
+      ctx.lineWidth = STROKE_WEIGHT * (shape.snapped ? 0.88 : 1);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.shadowColor = shape.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+
+      if (shape.kind === 'line') {
+        ctx.moveTo(s.x, s.y); ctx.lineTo(e.x, e.y);
+      } else if (shape.kind === 'arrow') {
+        var dx = e.x - s.x, dy = e.y - s.y;
+        var len = Math.hypot(dx, dy);
+        if (len <= 1) {
+          ctx.moveTo(s.x, s.y); ctx.lineTo(e.x, e.y);
+        } else {
+          // The shaft stops short of the tip so it cannot poke through the head.
+          var head = Math.min(ARROW_HEAD, len * 0.4);
+          var ang = Math.atan2(dy, dx);
+          var wing = Math.PI / 7;
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(e.x - Math.cos(ang) * head * 0.8, e.y - Math.sin(ang) * head * 0.8);
+          ctx.moveTo(e.x, e.y);
+          ctx.lineTo(e.x - Math.cos(ang - wing) * head, e.y - Math.sin(ang - wing) * head);
+          ctx.moveTo(e.x, e.y);
+          ctx.lineTo(e.x - Math.cos(ang + wing) * head, e.y - Math.sin(ang + wing) * head);
+        }
+      } else {
+        var x = Math.min(s.x, e.x), y = Math.min(s.y, e.y);
+        var w = Math.abs(e.x - s.x), h = Math.abs(e.y - s.y);
+        if (shape.kind === 'rectangle') {
+          ctx.rect(x, y, w, h);
+        } else {
+          ctx.ellipse(x + w / 2, y + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function paintLaser(now) {
+      if (laser.presence <= 0.01 || !laser.started) { return; }
+      var c = state.color;
+      var n = laser.samples.length;
+
+      if (!reduceMotion && n > 1) {
+        ctx.save();
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = c.falloff;
+        ctx.shadowColor = c.falloff;
+        ctx.shadowBlur = 12;
+        for (var i = 1; i < n; i++) {
+          var a = laser.samples[i - 1], b = laser.samples[i];
+          var age = now - b.t;
+          // Opacity halves every trailHalfLife seconds, as in the app's renderer.
+          var decay = Math.pow(2, -age / TRAIL_HALF_LIFE);
+          if (decay < 0.02) { continue; }
+          var taper = i / n;
+          ctx.globalAlpha = decay * 0.72 * laser.presence;
+          ctx.lineWidth = Math.max(1, LASER_CORE * 0.5 * taper * decay);
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      var r = LASER_CORE / 2;
+      var p = laser.pos;
+      ctx.save();
+      ctx.globalAlpha = laser.presence;
+
+      ctx.globalAlpha = laser.presence * 0.28;
+      ctx.fillStyle = c.falloff;
+      ctx.shadowColor = c.falloff;
+      ctx.shadowBlur = 22;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r * 1.85, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.globalAlpha = laser.presence;
+      ctx.shadowBlur = 14;
+      var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+      grad.addColorStop(0, c.core);
+      grad.addColorStop(0.45, c.falloff);
+      grad.addColorStop(1, c.falloff);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    var lastFrame = 0;
+    function frame(ms) {
+      var now = ms / 1000;
+      var dt = lastFrame ? Math.min(0.05, now - lastFrame) : 1 / 60;
+      lastFrame = now;
+
+      if (state.tool === 'laser' && (state.pointerInside || laser.presence > 0.01)) {
+        laserUpdate(state.cursor, now, dt);
+      }
+
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < state.shapes.length; i++) { strokeShape(state.shapes[i], 1); }
+      if (state.draft) { strokeShape(state.draft, 0.9); }
+      if (state.tool === 'laser') { paintLaser(now); }
+
+      window.requestAnimationFrame(frame);
+    }
+    window.requestAnimationFrame(frame);
+
+    /* ---------------------------------------------------------------------
+       Pointer gestures.
+       Hold still for 250 ms opens the ring; moving past 4 px makes it a drag,
+       permanently. That is how the app separates the two without a rule to learn.
+       --------------------------------------------------------------------- */
+    function local(ev) {
+      var r = stage.getBoundingClientRect();
+      return { x: ev.clientX - r.left, y: ev.clientY - r.top };
+    }
+
+    var holdTimer = null;
+
+    stage.addEventListener('pointerdown', function (ev) {
+      if (ev.button !== 0 && ev.pointerType === 'mouse') { return; }
+      ev.preventDefault();
+      stage.setPointerCapture(ev.pointerId);
+      stage.focus({ preventScroll: true });
+      var p = local(ev);
+      state.cursor = p;
+      state.hold = { x: p.x, y: p.y, at: performance.now(), moved: false };
+      window.clearTimeout(holdTimer);
+      holdTimer = window.setTimeout(function () {
+        if (state.hold && !state.hold.moved && !state.menu) {
+          openMenu(state.hold.x, state.hold.y);
+        }
+      }, HOLD_THRESHOLD);
+    });
+
+    stage.addEventListener('pointermove', function (ev) {
+      var p = local(ev);
+      state.cursor = p;
+      state.pointerInside = true;
+
+      if (state.menu) {
+        var sel = selectionAt(p, state.menu);
+        if (!state.menu.selection || sel.kind !== state.menu.selection.kind ||
+            sel.id !== state.menu.selection.id) {
+          state.menu.selection = sel;
+          paintRing();
+        }
+        return;
+      }
+
+      if (!state.hold) { return; }
+      if (!state.hold.moved &&
+          Math.hypot(p.x - state.hold.x, p.y - state.hold.y) > HOLD_TOLERANCE) {
+        state.hold.moved = true;
+        window.clearTimeout(holdTimer);
+      }
+      if (!state.hold.moved) { return; }
+
+      var tool = toolById(state.tool);
+      if (!tool.draws) { return; }
+
+      var start = { x: state.hold.x, y: state.hold.y };
+      var snapped = applySnap(state.tool, start, p);
+      state.draft = {
+        kind: state.tool,
+        start: start,
+        end: snapped,
+        color: state.color.falloff,
+        snapped: snapped.x !== p.x || snapped.y !== p.y
+      };
+    });
+
+    function endGesture(p) {
+      window.clearTimeout(holdTimer);
+      if (state.menu) {
+        var sel = selectionAt(p, state.menu);
+        var cx = state.menu.x, cy = state.menu.y;
+        closeMenu();
+        if (sel.kind === 'tool') {
+          setTool(sel.id, cx, cy);
+        } else if (sel.kind === 'action') {
+          if (sel.id === 'undo') { undo(); }
+          else if (sel.id === 'redo') { redo(); }
+          else { clearAll(); }
+          var spec = ACTIONS.filter(function (a) { return a.id === sel.id; })[0];
+          showFlash(spec, cx, cy);
+        }
+        state.hold = null;
+        state.draft = null;
+        return;
+      }
+      if (state.draft) {
+        var d = state.draft;
+        if (Math.hypot(d.end.x - d.start.x, d.end.y - d.start.y) > 6) {
+          commit(d);
+        }
+      }
+      state.draft = null;
+      state.hold = null;
+    }
+
+    stage.addEventListener('pointerup', function (ev) { endGesture(local(ev)); });
+    stage.addEventListener('pointercancel', function () {
+      window.clearTimeout(holdTimer);
+      closeMenu();
+      state.draft = null;
+      state.hold = null;
+    });
+    stage.addEventListener('pointerenter', function (ev) {
+      state.pointerInside = true;
+      state.cursor = local(ev);
+      // Re-seed the spring at the entry point, so returning to the stage does not drag
+      // a trail across it from wherever the cursor left.
+      if (laser.presence < 0.05) { laser.started = false; }
+    });
+    stage.addEventListener('pointerleave', function () {
+      if (!state.hold) { state.pointerInside = false; }
+    });
+    // Control-click is secondary click on a Mac, and the app owns that gesture too.
+    stage.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
+
+    /* ---------------------------------------------------------------------
+       Keyboard
+       --------------------------------------------------------------------- */
+    document.addEventListener('keydown', function (ev) {
+      var key = ev.key;
+      if (key === 'Escape') {
+        if (state.menu) { closeMenu(); state.hold = null; }
+        else { clearAll(); }
+        return;
+      }
+      if ((ev.metaKey || ev.ctrlKey) && (key === 'z' || key === 'Z')) {
+        ev.preventDefault();
+        if (ev.shiftKey) { redo(); } else { undo(); }
+      } else if ((ev.metaKey || ev.ctrlKey) && (key === 'y' || key === 'Y')) {
+        ev.preventDefault();
+        redo();
+      }
+    });
+
+    /* ---------------------------------------------------------------------
+       Colour swatches
+       --------------------------------------------------------------------- */
+    COLORS.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'swatch';
+      b.style.setProperty('--c', c.falloff);
+      b.setAttribute('aria-label', c.id);
+      b.setAttribute('aria-pressed', String(c.id === state.color.id));
+      b.addEventListener('click', function () {
+        state.color = c;
+        Array.prototype.forEach.call(swatchBox.children, function (el) {
+          el.setAttribute('aria-pressed', String(el === b));
+        });
+      });
+      swatchBox.appendChild(b);
+    });
+
+    clearBtn.addEventListener('click', function () { clearAll(); stage.focus(); });
+
+    resize();
+    setTool('laser');
+    paintRing();
+  })();
+  </script>
+</body>
+</html>
