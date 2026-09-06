@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iReflection — Support</title>
+  <meta name="description" content="Help and answers for iReflection, the private daily handwriting journal for iPad.">
+  <link rel="canonical" href="https://shutasuzuki.com/iReflection/support.html">
+  <link rel="shortcut icon" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/favicon.png">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --bg-elev: #f5f5f7;
+      --fg: #1d1d1f;
+      --muted: #6e6e73;
+      --rule: #d2d2d7;
+      --accent: #0071e3;
+      --nav-bg: rgba(255, 255, 255, 0.72);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --bg-elev: #1d1d1f;
+        --fg: #f5f5f7;
+        --muted: #86868b;
+        --rule: #2c2c2e;
+        --accent: #2997ff;
+        --nav-bg: rgba(0, 0, 0, 0.72);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 56px; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    body { padding-top: 48px; }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 22px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--fg);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .nav-brand:hover { text-decoration: none; }
+    .nav-brand img {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+    }
+    .nav-actions { display: inline-flex; gap: 22px; align-items: center; }
+    .nav-actions a { color: var(--fg); font-weight: 400; text-decoration: none; }
+    .nav-actions a:hover { color: var(--accent); text-decoration: none; }
+
+    main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+    header { border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 32px; }
+    h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .subtitle { color: var(--muted); font-size: 15px; margin: 0; }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin: 40px 0 12px; }
+    h3 { font-size: 17px; font-weight: 600; margin: 28px 0 6px; }
+    p, li { color: var(--fg); }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.92em;
+      background: var(--bg-elev);
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+    .summary {
+      background: transparent;
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      margin: 24px 0 32px;
+    }
+    .summary strong { color: var(--accent); }
+    .steps {
+      background: var(--bg-elev);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 20px 0 28px;
+    }
+    .steps p { margin: 0 0 10px; }
+    .steps p:last-child { margin-bottom: 0; }
+    footer {
+      border-top: 1px solid var(--rule);
+      padding-top: 24px;
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 640px) { .nav-actions { gap: 14px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="nav-brand" href="./">
+        <img src="../assets/icon.png" alt="">
+        <span>iReflection</span>
+      </a>
+      <div class="nav-actions">
+        <a href="./support.html">Support</a>
+        <a href="./privacy-policy.html">Privacy</a>
+        <a href="https://apps.apple.com/us/app/ireflection-journal/id6763083366" target="_blank" rel="noopener noreferrer">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header>
+      <h1>Support</h1>
+      <p class="subtitle">iReflection — Daily Handwriting Journal</p>
+      <p class="subtitle">Requires iPadOS 18 or later</p>
+    </header>
+
+    <div class="summary">
+      <p><strong>The whole app in one line:</strong> open Today, pick up your Apple Pencil, and write. The page is saved as you go.</p>
+    </div>
+
+    <h2>Getting started</h2>
+    <p>iReflection has three tabs. <strong>Today</strong> is the page for this date. <strong>Calendar</strong> is every day you have written. <strong>Settings</strong> is paper, reminders, App Lock, optional writing prompts, and optional iCloud Backup. There is no account and nothing to sign in to.</p>
+
+    <div class="steps">
+      <p><strong>Write today.</strong> Open the Today tab and write with Apple Pencil. You can also use a finger. Every stroke is saved automatically.</p>
+      <p><strong>Look back.</strong> Open the Calendar tab and tap any filled day to re-read that entry. Swipe left or right on the month, or tap the month title to jump.</p>
+      <p><strong>Set a nudge.</strong> Settings → Reminders. The notification is scheduled on your iPad — Apple’s push servers are never contacted.</p>
+      <p><strong>Lock it, if you want.</strong> Settings → App Lock. A 4-digit PIN gates the app when you leave and come back.</p>
+    </div>
+
+    <h2>The page</h2>
+    <p>Settings → Canvas lets you pick a blank, ruled, or dotted background, and portrait or landscape. Today’s page follows those settings while you are writing it. Once the day is over, that entry keeps the paper it was written on, including any prompt you answered — so looking back shows the page as it was, not as you have it set up now.</p>
+    <p>An optional writing prompt lives under Settings → Prompt. It is off by default. Turn it on and a short question is printed faintly on the paper for you to write against. The prompt is printed on the page, not written into your entry, so it is never saved as ink.</p>
+    <p>On Today, swipe right with a finger to slide your most recent previous entry in beside today, then swipe back — or tap <strong>Go back to Today</strong> — to keep writing. Your zoom and anything you were mid-stroke on are left as they were.</p>
+
+    <h2>Calendar, streak, and the widget</h2>
+    <p>Filled days are days you wrote. The streak counts consecutive days ending today, or yesterday if you have not written yet today. It is a count, not a game.</p>
+    <p>A Home Screen widget shows the same streak in four sizes. Add it the usual way: touch and hold an empty area, tap Edit, and choose iReflection. Tapping the widget opens Today. Before you have opened the app once, it says to open iReflection rather than showing a zero — that is intentional.</p>
+
+    <h2>iCloud Backup</h2>
+    <p>Off by default. When you turn it on in Settings → iCloud Backup, copies of your entries go to <em>your</em> private iCloud and sync across iPads signed into the same Apple ID. The developer cannot read them. Offline writes queue and sync when you are back online.</p>
+    <p>On a new iPad, the app offers to restore from iCloud the first time you open it. Turning iCloud Backup off never deletes the entries on this iPad — you choose whether to keep or delete the cloud copy.</p>
+    <p>Your App Lock PIN does not sync. A new iPad needs its own PIN.</p>
+
+    <h2>App Lock</h2>
+    <p>Settings → App Lock → Set PIN. iReflection asks for the PIN when you open it or switch back to it, and the app switcher shows the lock screen instead of your journal. Transient things like Control Center, Notification Center, and screenshots are left alone.</p>
+    <p>There is no email reset. To turn it off, unlock the app and choose Settings → App Lock → Disable Lock. After 15 failed attempts, you can erase all journal data on this iPad and start over. That is the only recovery path if you forget the PIN.</p>
+
+    <h2>Common questions</h2>
+
+    <h3>I forgot my PIN</h3>
+    <p>There is no way for the developer to recover it — it never leaves this iPad. Fail the PIN 15 times and use the erase-all-data button, or delete the app. Either path removes the local journal. If iCloud Backup was on, you can reinstall and restore the cloud copy; you will set a new PIN on this device.</p>
+
+    <h3>The reminder still fired after I already wrote</h3>
+    <p>It should not, from version 1.2.2 on. Saving today’s entry with at least one stroke cancels today’s reminder. Check Settings → Reminders, and that iPadOS still allows notifications for iReflection in the system Settings app.</p>
+
+    <h3>iCloud Backup shows an error</h3>
+    <p>The usual causes are being signed out of iCloud, iCloud Drive turned off, or the iCloud account being out of space. Your local entries keep working. Sign back in, free space, or wait for the network — queued writes retry on their own.</p>
+
+    <h3>The widget is empty or says to open the app</h3>
+    <p>Open iReflection once and write something. The widget reads a small streak summary from the app; it never sees your handwriting. After that it updates when you write, when a restore finishes, and at midnight.</p>
+
+    <h3>Swipe right on Today does nothing</h3>
+    <p>Use a finger, not Apple Pencil — Pencil strokes are writing. There also has to be a previous entry to show. A skipped day still shows your most recent entry rather than a blank page.</p>
+
+    <h3>Does it need an Apple Pencil?</h3>
+    <p>No. Pencil is the intended way to write, but a finger works. Any Apple Pencil that your iPad supports will work; iReflection uses the system PencilKit canvas.</p>
+
+    <h3>Will deleting the app delete my journal?</h3>
+    <p>Deleting the app removes everything stored on that iPad, including the App Lock PIN. It does not touch an iCloud copy unless you separately delete that copy in Settings → iCloud Backup. If you only wanted a reset, that is the distinction.</p>
+
+    <h2>Resetting iReflection</h2>
+    <p>Preferences and entries live in the app’s sandbox on your iPad. Deleting the app removes them, along with the PIN in the Keychain.</p>
+    <p>To remove the iCloud copy without deleting local entries: Settings → iCloud Backup → Disable, then choose <strong>Delete cloud copy</strong>. Keeping the cloud copy leaves it in your iCloud in case you turn the feature back on later.</p>
+
+    <h2>Contact</h2>
+    <p>Questions, bugs or requests: <a href="mailto:shutas@umich.edu">shutas@umich.edu</a></p>
+
+    <footer>
+      <p>&copy; 2026 Shuta Suzuki. <a href="./">iReflection</a> &middot; <a href="./privacy-policy.html">Privacy Policy</a> &middot; <a href="https://shutasuzuki.com">shutasuzuki.com</a></p>
+    </footer>
+  </main>
+</body>
+</html>
