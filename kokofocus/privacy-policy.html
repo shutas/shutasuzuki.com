@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kokofocus — Privacy Policy</title>
-  <meta name="description" content="Privacy policy for kokofocus. The app collects no data, requests no permissions, and makes no network connections.">
+  <meta name="description" content="How kokofocus keeps preferences and window capture local, handles optional update checks, and collects no data for the developer.">
   <link rel="canonical" href="https://shutasuzuki.com/kokofocus/privacy-policy.html">
   <link rel="shortcut icon" href="../assets/favicon.png">
   <link rel="apple-touch-icon" href="../assets/favicon.png">
@@ -123,18 +123,19 @@
     <header>
       <h1>Privacy Policy</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Last updated: September 5, 2026</p>
+      <p class="subtitle">Last updated: September 18, 2026</p>
     </header>
 
     <div class="summary">
-      <p><strong>TL;DR:</strong> kokofocus collects nothing. It makes no network connections of any kind, so there is no mechanism by which anything could leave your Mac. It requests no system permissions — not Accessibility, not Screen Recording, not anything. A handful of preferences are stored on your own Mac and are removed when you delete the app.</p>
+      <p><strong>In brief:</strong> the developer collects no personal data. Preferences stay on your Mac. In version 1.1, optional Window Share processes a window you select locally, and Check for Updates contacts Apple only when you request it. Your meeting app handles sharing with participants.</p>
     </div>
 
     <h2>Data we collect</h2>
     <p><strong>None.</strong> The developer does not collect, request, or receive any personal information, identifiers, usage metrics, diagnostics, or content of any kind. There is no analytics SDK, no crash reporter, no advertising network, and no developer-operated server. kokofocus has no account system and nothing to sign in to.</p>
 
     <h2>Network activity</h2>
-    <p><strong>None.</strong> kokofocus makes no network connections. This is not a policy commitment that could quietly change in a future build — the app contains no networking code at all, and is distributed sandboxed without the entitlement that would permit outgoing connections. Nothing you point at, draw, or configure can leave your Mac, because there is no path by which it could.</p>
+    <p>Version 1.0 makes no network connections. Starting in version 1.1, choosing <strong>Check for Updates</strong> makes an HTTPS request to Apple&rsquo;s public app catalog using kokofocus&rsquo;s App Store ID and the region configured on your Mac. It sends no screen content, annotations, preferences, account information, or device identifier. The request uses no cookies or persistent cache. Apple receives the network information needed to answer the request, including your IP address; Apple&rsquo;s own privacy policy applies to its service.</p>
+    <p>Updates install through the Mac App Store. kokofocus does not run an update server or automatically check for updates in the background. Opening the App Store or a support link uses the destination service under its own privacy policy.</p>
 
     <h2>Data stored on your device</h2>
     <p>kokofocus stores a small set of preferences locally, inside the app&rsquo;s sandboxed container managed by macOS:</p>
@@ -142,19 +143,23 @@
       <li>Your selected tool, colour, laser size and stroke weight.</li>
       <li>Your interaction settings: which key opens the tool ring, the hold duration, and whether the double-tap shortcut is enabled.</li>
       <li>Display preferences such as whether shapes fade automatically and after how long.</li>
-      <li>Whether you have seen the introduction.</li>
+      <li>Your tool shortcut assignments and tutorial display preference.</li>
     </ul>
-    <p>That is the complete list. Nothing you draw is saved — annotations exist only on screen and are gone when you clear them, turn the app off, or quit it. Nothing is written outside the app&rsquo;s container, and deleting the app removes all of it.</p>
+    <p>Annotations and optional Window Share frames are held in memory, not saved as recordings or documents. They are discarded when the session ends. Preferences remain in the app&rsquo;s sandbox container; macOS may retain that container after uninstalling.</p>
+
+    <h2>Window Share (beta), available in version 1.1</h2>
+    <p>You choose the source through Apple&rsquo;s system window picker. kokofocus captures that authorized source, combines its video with your annotations locally, and displays the result in a separate presentation window. It does not capture audio, save recordings, or upload the frames. Ending Window Share stops capture.</p>
+    <p>To show the result to others, you separately select kokofocus&rsquo;s presentation window in your meeting app. That app handles transmission and any meeting recording, under its own settings and privacy policy.</p>
 
     <h2>Permissions requested</h2>
-    <p><strong>None.</strong> kokofocus does not request Accessibility access, Input Monitoring, Screen Recording, the camera, the microphone, your location, your contacts, or access to any of your files.</p>
-    <p>To do its job, the app reads a few pieces of system state once per display frame: where the cursor is, which modifier keys are held, whether a mouse button is down, and whether the Escape key is held. These are state queries, not event interception — no keystroke is recorded or stored, nothing is logged, and every keyboard shortcut in every other application continues to work normally. This is precisely why the app needs no Accessibility or Input Monitoring permission, and it is the only reason it looks at input at all.</p>
+    <p>Display annotation requires no capture access. Optional Window Share uses the macOS picker to authorize the selected source for the session, without asking for blanket Screen Recording access. kokofocus does not request Accessibility, Input Monitoring, camera, microphone, location, contacts, or file access.</p>
+    <p>The app reads cursor position, modifier-key state, mouse-button state, and Escape state to operate its tools. It does not record your typing or install a global event tap. In version 1.1, assigned tool shortcuts are registered with macOS while kokofocus is on and interaction is active; they pause in Settings, Tutorial, and sharing setup. These combinations can take precedence over another app&rsquo;s shortcuts. When you record a shortcut in Settings, only the assignment you choose is saved.</p>
 
     <h2>What your audience sees</h2>
-    <p>When you share your screen, participants see your annotations because those are drawn on your screen. kokofocus deliberately excludes its own controls — the tool ring and the tool indicator — from screen capture, so the mechanism stays private to you. None of this involves the developer, and no part of your screen is ever transmitted by kokofocus.</p>
+    <p>Sharing a display includes the annotations drawn on it. Window Share includes the selected source and annotations in the presentation window. The tool ring and tool indicator are excluded from capture by default; a setting lets you include them. The developer receives none of this content.</p>
 
     <h2>Third-party services</h2>
-    <p><strong>None.</strong> kokofocus includes no third-party SDKs, frameworks, analytics providers, advertising networks, or crash reporters. It uses only Apple&rsquo;s own system frameworks, which ship as part of macOS.</p>
+    <p>Apple provides the system capture picker, app catalog, and Mac App Store. Version 1.1 also includes the open-source KeyboardShortcuts library for keyboard shortcut representations and labels; it adds no analytics or network service. Its MIT license is bundled with the app. There are no advertising or analytics SDKs.</p>
 
     <h2>Tracking</h2>
     <p><strong>None.</strong> kokofocus does not track you across apps or websites and uses no advertising identifier.</p>
@@ -163,10 +168,10 @@
     <p>kokofocus is rated 4+ and collects no data from any user, including children.</p>
 
     <h2>Your rights</h2>
-    <p>Because the developer never receives your data, there is nothing to export, correct, or delete on your behalf. You can remove everything kokofocus has stored by deleting the app, which removes its sandbox container and all its contents. To reset preferences without uninstalling, quit kokofocus and delete <code>~/Library/Containers/com.shutas.kokofocus</code>.</p>
+    <p>The developer holds no personal data to export, correct, or delete. You can reset tool shortcuts within Settings. To remove all local preferences, quit kokofocus and remove its sandbox container at <code>~/Library/Containers/com.shutas.kokofocus</code>. Uninstalling alone may leave preferences behind.</p>
 
     <h2>Changes to this policy</h2>
-    <p>If this policy changes, the updated version will be published at the same URL with a new &ldquo;Last updated&rdquo; date. Because kokofocus collects no data, any future change will at most clarify existing practice.</p>
+    <p>Changes will be published at this URL with a new &ldquo;Last updated&rdquo; date. This update describes version 1.1, including optional Window Share and user-requested update checks, while retaining the details relevant to version 1.0.</p>
 
     <h2>Developer</h2>
     <p>kokofocus is developed and maintained by Shuta Suzuki. For help, see the <a href="./support.html">support page</a> or write to shutas [at] umich.edu. Replace <code>[at]</code> with <code>@</code>.</p>

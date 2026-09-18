@@ -641,20 +641,20 @@
         <span>Tool</span><span class="strip-tool" id="toolName">Laser</span>
       </div>
       <div class="strip-group">
-        <span><kbd>Esc</kbd> clears &middot; <kbd>⌘Z</kbd> undo</span>
+        <span><kbd>Esc</kbd> Pointer, then clear &middot; <kbd>⌘Z</kbd> undo</span>
         <button class="btn-quiet" id="clearBtn" type="button">Clear</button>
       </div>
     </div>
 
     <p class="fineprint">
-      This is the real thing, ported to the browser — the same ring, the same spring on the laser,
+      Try the tools in this browser preview — the same ring, the same spring on the laser,
       the same snapping. In the app you hold <kbd>Control</kbd> before pressing, so ordinary clicks
       still reach your slides, and it draws over any app on every display.
     </p>
     <p class="facts">
       <span>macOS 26+</span><span class="dot"></span>
-      <span>No permissions</span><span class="dot"></span>
-      <span>No network</span><span class="dot"></span>
+      <span>No account</span><span class="dot"></span>
+      <span>No tracking</span><span class="dot"></span>
       <span>English and Japanese</span><span class="dot"></span>
       <span>Free</span>
     </p>
@@ -1285,8 +1285,14 @@
     document.addEventListener('keydown', function (ev) {
       var key = ev.key;
       if (key === 'Escape') {
+        if (ev.repeat) { return; }
         if (state.menu) { closeMenu(); state.hold = null; }
-        else { clearAll(); }
+        else if (state.tool !== 'pointer') {
+          state.draft = null;
+          state.hold = null;
+          window.clearTimeout(holdTimer);
+          setTool('pointer');
+        } else { clearAll(); }
         return;
       }
       if ((ev.metaKey || ev.ctrlKey) && (key === 'z' || key === 'Z')) {
