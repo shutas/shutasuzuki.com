@@ -8,8 +8,8 @@
   <meta name="keywords" content="kokofocus, Mac presentation tool, screen annotation, laser pointer, macOS, screen sharing, annotate, teach, demo">
   <meta name="theme-color" content="#000000">
   <link rel="canonical" href="https://shutasuzuki.com/kokofocus/">
-  <link rel="shortcut icon" href="../assets/favicon.png">
-  <link rel="apple-touch-icon" href="../assets/favicon.png">
+  <link rel="shortcut icon" href="../assets/kokofocus-icon.png">
+  <link rel="apple-touch-icon" href="../assets/kokofocus-icon.png">
 
   <!-- Open Graph -->
   <meta property="og:url" content="https://shutasuzuki.com/kokofocus/">
@@ -17,7 +17,7 @@
   <meta property="og:title" content="kokofocus — Point and draw on your screen">
   <meta property="og:site_name" content="kokofocus">
   <meta property="og:description" content="A laser pointer and four shapes for your Mac, reached with one gesture. Try the whole thing right here in your browser.">
-  <meta property="og:image" content="https://shutasuzuki.com/assets/og-preview.jpg">
+  <meta property="og:image" content="https://shutasuzuki.com/assets/kokofocus-icon.png">
 
   <script type="application/ld+json">
     {
@@ -120,7 +120,7 @@
     }
     .nav-brand:hover { text-decoration: none; }
     /* The mark is drawn in black; the nav bar is black, so invert it there.
-       Only the colour channels flip, so the transparency is preserved. */
+       Only the color channels flip, so the transparency is preserved. */
     .nav-brand img { width: 21px; height: 21px; filter: invert(1); }
     .nav-actions { display: inline-flex; gap: 22px; align-items: center; }
     .nav-actions a { color: var(--nav-fg); font-weight: 400; }
@@ -305,9 +305,18 @@
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.14s var(--ease), transform 0.22s var(--ease);
+      transition: opacity 0.07s var(--ease), transform 0.11s var(--ease);
     }
     .ring.is-open { opacity: 1; visibility: visible; }
+    .stage[data-menu-background="light"] { --ring-plate: #f7f7f7; --ring-item: #fff; }
+    .stage[data-menu-background="dark"] {
+      --ring-plate: #212121; --ring-edge: rgba(255,255,255,.16);
+      --ring-item: #383838; --ring-item-edge: rgba(255,255,255,.12); --ring-fg: #fff;
+    }
+    .stage[data-menu-background="light"] .ring-plate,
+    .stage[data-menu-background="dark"] .ring-plate { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .stage[data-menu-background="transparent"] .ring-plate { display: none; }
+    .stage[data-menu-background="transparent"] .ring-item { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .ring-plate {
       position: absolute;
       left: 50%; top: 50%;
@@ -319,7 +328,49 @@
       -webkit-backdrop-filter: saturate(180%) blur(24px);
       box-shadow: 0 22px 50px -18px rgba(0, 0, 0, 0.4);
     }
+    .stage[data-menu-background="liquidGlass"] .ring-plate {
+      background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.06),
+        rgba(255, 255, 255, 0.015) 45%,
+        rgba(255, 255, 255, 0.035));
+      border-color: rgba(0, 0, 0, 0.18);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow:
+        0 12px 28px -14px rgba(0, 0, 0, 0.24),
+        inset 0 2px 2px rgba(255, 255, 255, 0.92),
+        inset 1px 0 2px rgba(255, 255, 255, 0.40),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.16);
+    }
+    /* A rounded optical edge makes the clear disc visible without frosting its center. */
+    .stage[data-menu-background="liquidGlass"] .ring-plate::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,.34), rgba(255,255,255,.06) 45%, rgba(255,255,255,.22));
+      backdrop-filter: saturate(135%) blur(4px);
+      -webkit-backdrop-filter: saturate(135%) blur(4px);
+      mask-image: radial-gradient(circle closest-side, transparent calc(100% - 12px), #000 calc(100% - 4px));
+      -webkit-mask-image: radial-gradient(circle closest-side, transparent calc(100% - 12px), #000 calc(100% - 4px));
+    }
+    .stage[data-menu-background="liquidGlass"] .ring-plate::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      border: 1.5px solid rgba(255, 255, 255, 0.82);
+      box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.10);
+      mask-image: linear-gradient(135deg, #000, transparent 45%, #000);
+      -webkit-mask-image: linear-gradient(135deg, #000, transparent 45%, #000);
+    }
+    .stage[data-menu-background="liquidGlass"] {
+      --ring-item: rgba(255, 255, 255, 0.82);
+      --ring-item-edge: rgba(0, 0, 0, 0.08);
+      --ring-fg: #1d1d1f;
+    }
     .ring-cancel {
+      display: none;
       position: absolute;
       left: 50%; top: 50%;
       border-radius: 50%;
@@ -344,13 +395,21 @@
       box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.5);
       opacity: 0;
       transition:
-        opacity 0.18s var(--ease),
+        opacity var(--reveal-duration, 0ms) var(--reveal-easing, ease-out) var(--reveal-delay, 0ms),
         transform 0.24s var(--ease),
         background 0.16s var(--ease),
         border-color 0.16s var(--ease),
         color 0.16s var(--ease);
     }
-    .ring.is-open .ring-item { opacity: 1; }
+    .ring.is-open .ring-item {
+      opacity: 1;
+      --reveal-duration: var(--menu-outer-fade);
+      --reveal-delay: var(--menu-item-delay, 0ms);
+      --reveal-easing: ease-in-out;
+    }
+    .ring.is-open .ring-item.inner {
+      --reveal-duration: var(--menu-reveal-duration);
+    }
     /* The active tool fills entirely — the app's way of showing where you already are. */
     .ring-item.is-current {
       background: var(--accent);
@@ -404,7 +463,11 @@
       font-size: 14px;
       color: var(--fg-muted);
     }
-    .strip-group { display: inline-flex; align-items: center; gap: 10px; }
+    .strip-group { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; max-width: 100%; }
+    .strip select {
+      max-width: 160px; border: 1px solid var(--rule); border-radius: 8px;
+      padding: 5px 8px; font: inherit; color: var(--fg); background: var(--bg);
+    }
     .swatches { display: inline-flex; gap: 8px; }
     .swatch {
       width: 22px; height: 22px;
@@ -426,15 +489,6 @@
     .swatch:hover { transform: scale(1.12); }
     .swatch[aria-pressed="true"] { border-color: var(--c); }
     .strip-tool { color: var(--fg); font-weight: 500; }
-    .btn-quiet {
-      font: inherit;
-      font-size: 14px;
-      color: var(--accent);
-      background: none;
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-    }
     kbd {
       display: inline-block;
       border: 1px solid var(--rule);
@@ -447,14 +501,6 @@
       color: var(--fg);
     }
 
-    .fineprint {
-      max-width: 720px;
-      margin: 40px auto 0;
-      text-align: center;
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--fg-muted);
-    }
     .facts {
       margin: 18px 0 0;
       display: flex;
@@ -488,6 +534,7 @@
         animation-duration: 0.001s !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001s !important;
+        transition-delay: 0s !important;
       }
       .hero-icon, .hero-aura { animation: none; }
       .hero-underline path { stroke-dasharray: none; stroke-dashoffset: 0; opacity: 1; }
@@ -558,8 +605,8 @@
 
   <header class="hero">
     <div class="hero-aura" aria-hidden="true"></div>
-    <img class="hero-icon" src="../assets/kokofocus-mark.png" alt="kokofocus logo" width="104" height="104">
-    <p class="eyebrow">Now on the Mac App Store</p>
+    <img class="hero-icon" src="../assets/kokofocus-icon.png" alt="kokofocus: six black circles on a white app icon" width="104" height="104">
+    <p class="eyebrow">On the Mac App Store · Version 1.2 preview below</p>
     <h1>kokofocus</h1>
     <div class="hero-tagline-wrap">
       <h2>Point and draw on your screen.</h2>
@@ -584,7 +631,7 @@
     <h2 class="visually-hidden" id="tryHeading">Try kokofocus in your browser</h2>
     <p class="note">
       <svg width="19" height="19" aria-hidden="true"><use href="#i-pointer"></use></svg>
-      <span>Press and hold on the slide, flick out to a tool, and let go. Then drag to draw.</span>
+      <span>Hold <kbd>Control</kbd> and press and hold on the slide, move to a tool, then release. On touchscreens, just press and hold.</span>
     </p>
 
     <div class="frame">
@@ -592,9 +639,9 @@
         <span class="light"></span><span class="light"></span><span class="light"></span>
         <span class="frame-title">Q3 Review — Keynote</span>
       </div>
-      <div class="stage tool-laser" id="stage" tabindex="0"
+      <div class="stage tool-laser" id="stage" tabindex="0" data-menu-background="liquidGlass"
            role="application"
-           aria-label="Interactive kokofocus demo. Press and hold to open the tool ring, drag to draw.">
+           aria-label="Interactive kokofocus demo. Hold Control and press and hold to open the tool ring. On touchscreens, just press and hold. Select a drawing tool, then drag to draw.">
         <svg class="slide" viewBox="0 0 1000 625" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
           <rect width="1000" height="625" fill="var(--slide-bg)"/>
           <text x="80" y="112" fill="var(--slide-fg)" font-size="46" font-weight="700"
@@ -634,23 +681,26 @@
 
     <div class="strip">
       <div class="strip-group">
-        <span>Colour</span>
-        <span class="swatches" id="swatches" role="group" aria-label="Ink colour"></span>
+        <span>Color</span>
+        <span class="swatches" id="swatches" role="group" aria-label="Ink color"></span>
       </div>
       <div class="strip-group">
         <span>Tool</span><span class="strip-tool" id="toolName">Laser</span>
       </div>
       <div class="strip-group">
+        <label for="menuBackground">Menu background</label>
+        <select id="menuBackground">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="liquidGlass" selected>Liquid Glass</option>
+          <option value="transparent">Transparent</option>
+        </select>
+      </div>
+      <div class="strip-group">
         <span><kbd>Esc</kbd> Pointer, then clear &middot; <kbd>⌘Z</kbd> undo</span>
-        <button class="btn-quiet" id="clearBtn" type="button">Clear</button>
       </div>
     </div>
 
-    <p class="fineprint">
-      Try the tools in this browser preview — the same ring, the same spring on the laser,
-      the same snapping. In the app you hold <kbd>Control</kbd> before pressing, so ordinary clicks
-      still reach your slides, and it draws over any app on every display.
-    </p>
     <p class="facts">
       <span>macOS 26+</span><span class="dot"></span>
       <span>No account</span><span class="dot"></span>
@@ -703,7 +753,6 @@
     var flashText = document.getElementById('flashText');
     var toolName = document.getElementById('toolName');
     var swatchBox = document.getElementById('swatches');
-    var clearBtn = document.getElementById('clearBtn');
 
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -732,6 +781,7 @@
     var IDLE_DELAY = 1.5;
     var IDLE_FADE = 0.6;
     var LASER_CORE = 20;           // LaserSize.medium, in points
+    var RIPPLE_DURATION = 0.45;    // LaserModel.rippleDuration, in seconds
     var STROKE_WEIGHT = 4;         // StrokeWeight.medium
     var ARROW_HEAD = 18;
 
@@ -743,6 +793,10 @@
       { id: 'rectangle', label: 'Rectangle', icon: '#i-rectangle', draws: true  },
       { id: 'ellipse',   label: 'Ellipse',   icon: '#i-ellipse',   draws: true  }
     ];
+    // Match CommandMenuView: keep 75 ms steps, with overlapping 150 ms fades.
+    var MENU_REVEAL_INTERVAL = 75;
+    var MENU_OUTER_FADE = 150;
+    var MENU_REVEAL_DURATION = (TOOLS.length - 1) * MENU_REVEAL_INTERVAL + MENU_OUTER_FADE;
     // MenuGeometry.actionOrder — redo, clear, undo — centred at 60°, 180°, 300°.
     var ACTIONS = [
       { id: 'redo',  label: 'Redo',  icon: '#i-redo'  },
@@ -782,6 +836,7 @@
       pos: { x: 0, y: 0 },
       vel: { x: 0, y: 0 },
       samples: [],
+      ripples: [],
       lastTarget: { x: 0, y: 0 },
       lastMovedAt: 0,
       presence: 0,
@@ -815,6 +870,8 @@
        Ring construction. Built once; positions refresh with the stage size.
        --------------------------------------------------------------------- */
     var ringItems = [];
+    ring.style.setProperty('--menu-outer-fade', MENU_OUTER_FADE + 'ms');
+    ring.style.setProperty('--menu-reveal-duration', MENU_REVEAL_DURATION + 'ms');
 
     function makeItem(spec, kind) {
       var btn = document.createElement('div');
@@ -839,7 +896,7 @@
     }
 
     function layoutRing() {
-      var plateSize = GEO.outerOuterRadius * 2 * scale + 16;
+      var plateSize = (GEO.outerOuterRadius + 8) * 2 * scale;
       ringPlate.style.width = plateSize + 'px';
       ringPlate.style.height = plateSize + 'px';
       ringCancel.style.width = GEO.cancelRadius * 2 * scale + 'px';
@@ -891,6 +948,13 @@
     function openMenu(x, y) {
       var c = clampedCenter(x, y);
       state.menu = { x: c.x, y: c.y, selection: { kind: 'cancel' } };
+      // Start at the current tool and wrap clockwise without moving any buttons.
+      var activeIndex = Math.max(0, TOOLS.findIndex(function (tool) { return tool.id === state.tool; }));
+      ringItems.forEach(function (item, index) {
+        if (item.kind !== 'outer') { return; }
+        var revealIndex = (index - activeIndex + TOOLS.length) % TOOLS.length;
+        item.el.style.setProperty('--menu-item-delay', (revealIndex * MENU_REVEAL_INTERVAL) + 'ms');
+      });
       var at = 'translate(' + c.x + 'px, ' + c.y + 'px) ';
       // Bloom outward from the cursor. Scaling the whole ring keeps the plate and the
       // items locked together, so nothing slides relative to anything else.
@@ -1044,6 +1108,15 @@
       laser.presence += (target01 - laser.presence) * Math.min(1, dt * 9);
     }
 
+    function addLaserRipple(point, now) {
+      if (reduceMotion) { return; }
+      if (!laser.started) { laserUpdate(point, now, 0); }
+      // A click makes the feedback visible even when the idle laser has faded.
+      laser.lastMovedAt = now;
+      laser.presence = 1;
+      laser.ripples.push({ x: point.x, y: point.y, t: now });
+    }
+
     /* ---------------------------------------------------------------------
        Painting
        --------------------------------------------------------------------- */
@@ -1091,6 +1164,25 @@
       ctx.restore();
     }
 
+    function paintLaserRipples(now) {
+      if (reduceMotion) { return; }
+      ctx.save();
+      ctx.strokeStyle = state.color.falloff;
+      ctx.lineWidth = 2;
+      laser.ripples.forEach(function (ripple) {
+        var progress = (now - ripple.t) / RIPPLE_DURATION;
+        if (progress < 0 || progress > 1) { return; }
+        // LaserLayer.drawRipples: cubic ease-out, expanding from 8 to 60 points.
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var radius = LASER_CORE * (0.4 + 2.6 * eased);
+        ctx.globalAlpha = (1 - progress) * 0.9 * laser.presence;
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
     function paintLaser(now) {
       if (laser.presence <= 0.01 || !laser.started) { return; }
       var c = state.color;
@@ -1119,6 +1211,8 @@
         }
         ctx.restore();
       }
+
+      paintLaserRipples(now);
 
       var r = LASER_CORE / 2;
       var p = laser.pos;
@@ -1152,6 +1246,12 @@
       var dt = lastFrame ? Math.min(0.05, now - lastFrame) : 1 / 60;
       lastFrame = now;
 
+      if (laser.ripples.length) {
+        laser.ripples = laser.ripples.filter(function (ripple) {
+          return now - ripple.t <= RIPPLE_DURATION;
+        });
+      }
+
       if (state.tool === 'laser' && (state.pointerInside || laser.presence > 0.01)) {
         laserUpdate(state.cursor, now, dt);
       }
@@ -1167,8 +1267,8 @@
 
     /* ---------------------------------------------------------------------
        Pointer gestures.
-       Hold still for 250 ms opens the ring; moving past 4 px makes it a drag,
-       permanently. That is how the app separates the two without a rule to learn.
+       Hold Control with a mouse to open the ring; touch and pen need no modifier.
+       Hold still for 250 ms opens the ring; moving past 4 px makes it a drag.
        --------------------------------------------------------------------- */
     function local(ev) {
       var r = stage.getBoundingClientRect();
@@ -1178,19 +1278,25 @@
     var holdTimer = null;
 
     stage.addEventListener('pointerdown', function (ev) {
-      if (ev.button !== 0 && ev.pointerType === 'mouse') { return; }
+      if (ev.pointerType === 'mouse' && ev.button !== 0 && !(ev.button === 2 && ev.ctrlKey)) { return; }
       ev.preventDefault();
       stage.setPointerCapture(ev.pointerId);
       stage.focus({ preventScroll: true });
       var p = local(ev);
       state.cursor = p;
+      state.pointerInside = true;
+      if (state.tool === 'laser' && !state.menu) {
+        addLaserRipple(p, performance.now() / 1000);
+      }
       state.hold = { x: p.x, y: p.y, at: performance.now(), moved: false };
       window.clearTimeout(holdTimer);
-      holdTimer = window.setTimeout(function () {
-        if (state.hold && !state.hold.moved && !state.menu) {
-          openMenu(state.hold.x, state.hold.y);
-        }
-      }, HOLD_THRESHOLD);
+      if (ev.ctrlKey || ev.pointerType === 'touch' || ev.pointerType === 'pen') {
+        holdTimer = window.setTimeout(function () {
+          if (state.hold && !state.hold.moved && !state.menu) {
+            openMenu(state.hold.x, state.hold.y);
+          }
+        }, HOLD_THRESHOLD);
+      }
     });
 
     stage.addEventListener('pointermove', function (ev) {
@@ -1283,16 +1389,23 @@
        Keyboard
        --------------------------------------------------------------------- */
     document.addEventListener('keydown', function (ev) {
+      if (document.activeElement !== stage) { return; }
       var key = ev.key;
       if (key === 'Escape') {
         if (ev.repeat) { return; }
+        ev.preventDefault();
+        window.clearTimeout(holdTimer);
         if (state.menu) { closeMenu(); state.hold = null; }
-        else if (state.tool !== 'pointer') {
-          state.draft = null;
-          state.hold = null;
-          window.clearTimeout(holdTimer);
-          setTool('pointer');
-        } else { clearAll(); }
+        else if (state.tool !== 'pointer') { state.hold = null; state.draft = null; setTool('pointer'); }
+        else { clearAll(); }
+        return;
+      }
+      var shortcuts = { p: 'pointer', l: 'laser', a: 'arrow', i: 'line', r: 'rectangle', e: 'ellipse' };
+      if (ev.ctrlKey && !ev.metaKey && !ev.altKey && !ev.shiftKey && shortcuts[key.toLowerCase()]) {
+        ev.preventDefault();
+        window.clearTimeout(holdTimer);
+        closeMenu(); state.hold = null; state.draft = null;
+        setTool(shortcuts[key.toLowerCase()]);
         return;
       }
       if ((ev.metaKey || ev.ctrlKey) && (key === 'z' || key === 'Z')) {
@@ -1305,7 +1418,7 @@
     });
 
     /* ---------------------------------------------------------------------
-       Colour swatches
+       Color swatches
        --------------------------------------------------------------------- */
     COLORS.forEach(function (c) {
       var b = document.createElement('button');
@@ -1323,7 +1436,10 @@
       swatchBox.appendChild(b);
     });
 
-    clearBtn.addEventListener('click', function () { clearAll(); stage.focus(); });
+    document.getElementById('menuBackground').addEventListener('change', function (ev) {
+      stage.dataset.menuBackground = ev.target.value;
+      openMenu(W / 2, H / 2);
+    });
 
     resize();
     setTool('laser');
