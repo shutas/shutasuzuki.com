@@ -365,9 +365,14 @@
       -webkit-mask-image: linear-gradient(135deg, #000, transparent 45%, #000);
     }
     .stage[data-menu-background="liquidGlass"] {
-      --ring-item: rgba(255, 255, 255, 0.82);
+      --ring-item: rgba(255, 255, 255, 0.32);
       --ring-item-edge: rgba(0, 0, 0, 0.08);
       --ring-fg: #1d1d1f;
+    }
+    /* The controls are a frosted part of the clear disc, retaining its background colors. */
+    .stage[data-menu-background="liquidGlass"] .ring-item {
+      backdrop-filter: saturate(135%) blur(8px);
+      -webkit-backdrop-filter: saturate(135%) blur(8px);
     }
     .ring-cancel {
       display: none;
@@ -528,6 +533,17 @@
     }
     .foot-inner a { color: var(--fg-muted); }
     .foot-inner a:hover { color: var(--fg); text-decoration: none; }
+
+    @media (prefers-reduced-transparency: reduce) {
+      .stage[data-menu-background="liquidGlass"] { --ring-item: #fff; }
+      .stage[data-menu-background="liquidGlass"] .ring-plate { background: #f7f7f7; }
+      .stage[data-menu-background="liquidGlass"] .ring-plate::before,
+      .stage[data-menu-background="liquidGlass"] .ring-plate::after { display: none; }
+      .stage[data-menu-background="liquidGlass"] .ring-item {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
