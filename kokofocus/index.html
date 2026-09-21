@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kokofocus — Point and draw on your screen</title>
-  <meta name="description" content="A laser pointer and drawing tools for your Mac. Annotate your screen or a single shared window, and try the tools right here in your browser.">
+  <meta name="description" content="A laser pointer and drawing tools for your Mac, reached with one gesture. Try the tools right here in your browser.">
   <meta name="keywords" content="kokofocus, Mac presentation tool, screen annotation, laser pointer, macOS, screen sharing, annotate, teach, demo">
   <meta name="theme-color" content="#000000">
   <link rel="canonical" href="https://shutasuzuki.com/kokofocus/">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="kokofocus — Point and draw on your screen">
   <meta property="og:site_name" content="kokofocus">
-  <meta property="og:description" content="Point and draw on your Mac screen or a single shared window. Try the tools in your browser and preview the new meeting-app guides in version 1.2.2.">
+  <meta property="og:description" content="Point and draw on your Mac screen with a laser pointer and four shapes, reached with one gesture. Try the tools right here in your browser.">
   <meta property="og:image" content="https://shutasuzuki.com/assets/kokofocus-icon.png">
 
   <script type="application/ld+json">
@@ -521,60 +521,6 @@
       align-self: center;
     }
 
-    /* ---------- Single-window annotation ---------- */
-    .window-share {
-      max-width: 1000px;
-      margin: 80px auto 0;
-      padding-top: 64px;
-      border-top: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-      scroll-margin-top: 80px;
-    }
-    .window-share h2 {
-      font-size: clamp(32px, 4vw, 46px);
-      line-height: 1.08;
-      letter-spacing: -0.035em;
-      margin: 0 0 20px;
-    }
-    .window-share-copy > p { margin: 0 0 18px; }
-    .window-share-copy > .eyebrow { margin-bottom: 12px; }
-    .window-share .preview-label {
-      display: inline-block;
-      margin-bottom: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-    .meeting-links {
-      display: flex;
-      gap: 12px 20px;
-      flex-wrap: wrap;
-      list-style: none;
-      padding: 0;
-      margin: 20px 0;
-      font-size: 15px;
-      font-weight: 500;
-    }
-    .meeting-links a { text-decoration: underline; text-underline-offset: 4px; }
-    .window-share .release-note { font-size: 13px; color: var(--fg-muted); }
-    .window-example { margin: 0; min-width: 0; }
-    .window-example-picture {
-      padding: 32px 22px;
-      border-radius: 22px;
-      background: linear-gradient(145deg, #eaf3fe, #f5f5f7 60%, #f6edf9);
-    }
-    .window-example svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.10)); }
-    .window-example figcaption { margin-top: 14px; text-align: center; font-size: 13px; color: var(--fg-muted); }
-    .hero-preview { margin: 22px 0 0; font-size: 14px; }
-    .hero-preview a { text-decoration: underline; text-underline-offset: 3px; }
-    @media (max-width: 800px) {
-      .window-share { grid-template-columns: 1fr; gap: 28px; margin-top: 56px; padding-top: 40px; }
-      .window-example { max-width: 560px; width: 100%; margin: 0 auto; }
-    }
-
     /* ---------- Footer ---------- */
     footer { border-top: 1px solid var(--rule); padding: 36px 22px; color: var(--fg-muted); font-size: 13px; }
     .foot-inner {
@@ -695,7 +641,6 @@
         </span>
       </a>
     </div>
-    <p class="hero-preview"><a href="#window-share">Coming in 1.2.2: guides for sharing one window <span aria-hidden="true">↓</span></a></p>
   </header>
 
   <section class="try" id="try" aria-labelledby="tryHeading">
@@ -779,53 +724,6 @@
       <span>English and Japanese</span><span class="dot"></span>
       <span>Free</span>
     </p>
-    <section class="window-share" id="window-share" aria-labelledby="windowShareHeading">
-      <div class="window-share-copy">
-        <p class="eyebrow">Single-window annotation · Beta</p>
-        <h2 id="windowShareHeading">Share one window.<br> Make your point.</h2>
-        <p>Bring your laser pointer and drawings into a shared app window, and keep working in the original app.</p>
-        <span class="preview-label">Coming in version 1.2.2</span>
-        <p>Choose <strong>Annotate a Single Window (beta)</strong>, then your meeting app. Short, animated guides walk you through stopping your current share, choosing a window, and sharing it with your audience.</p>
-        <ul class="meeting-links" aria-label="Preview the setup for your meeting app">
-          <li><a href="./support.html#teams-and-zoom">Microsoft Teams</a></li>
-          <li><a href="./support.html#webex">Webex</a></li>
-          <li><a href="./support.html#teams-and-zoom">Zoom</a></li>
-        </ul>
-        <p class="release-note">Version 1.2.1 is available now. The new guides in 1.2.2 are awaiting App Store review. Single-window annotation remains in beta; behavior can vary by meeting app.</p>
-      </div>
-      <figure class="window-example">
-        <div class="window-example-picture">
-          <svg viewBox="0 0 440 334" role="img" aria-labelledby="windowExampleTitle windowExampleDescription">
-            <title id="windowExampleTitle">Annotations on a shared presentation</title>
-            <desc id="windowExampleDescription">A presentation window with a red rectangle around the APAC result and a red arrow pointing to its growth.</desc>
-            <rect x="1" y="1" width="438" height="332" rx="12" fill="#fff" stroke="#d2d2d7"/>
-            <path d="M13 1 H427 Q439 1 439 13 V34 H1 V13 Q1 1 13 1" fill="#f5f5f7"/>
-            <circle cx="17" cy="18" r="4" fill="#ff5f57"/>
-            <circle cx="32" cy="18" r="4" fill="#febc2e"/>
-            <circle cx="47" cy="18" r="4" fill="#28c840"/>
-            <text x="220" y="22" text-anchor="middle" fill="#6e6e73" font-size="11">Quarterly review</text>
-            <text x="34" y="78" fill="#1d1d1f" font-size="26" font-weight="700" letter-spacing="-0.5">Make your point.</text>
-            <text x="34" y="104" fill="#6e6e73" font-size="13">Revenue by region</text>
-            <line x1="34" y1="275" x2="406" y2="275" stroke="#dcdce1"/>
-            <rect x="55" y="200" width="70" height="75" rx="4" fill="#dcdce1"/>
-            <rect x="185" y="146" width="70" height="129" rx="4" fill="#48484e"/>
-            <rect x="315" y="224" width="70" height="51" rx="4" fill="#dcdce1"/>
-            <g fill="#6e6e73" font-size="12" text-anchor="middle">
-              <text x="90" y="298">Americas</text>
-              <text x="220" y="298">APAC</text>
-              <text x="350" y="298">EMEA</text>
-            </g>
-            <text x="220" y="136" text-anchor="middle" fill="#48484e" font-size="14" font-weight="600">+38%</text>
-            <g fill="none" stroke="#ff453a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="170" y="116" width="100" height="194" rx="7"/>
-              <path d="M357 108 L288 137 M301 119 L288 137 L310 140"/>
-            </g>
-          </svg>
-        </div>
-        <figcaption>Your app, with your annotations.</figcaption>
-      </figure>
-    </section>
-
     <div class="closing">
       <a class="btn-appstore" href="https://apps.apple.com/app/kokofocus/id6808890982" target="_blank" rel="noopener noreferrer" aria-label="Download kokofocus on the Mac App Store">
         <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
@@ -847,7 +745,7 @@
         &nbsp;&middot;&nbsp;
         <a href="./privacy-policy.html">Privacy Policy</a>
         &nbsp;&middot;&nbsp;
-        shutas [at] umich.edu &mdash; replace [at] with @
+        shutas [at] umich [dot] edu &mdash; replace [at] with @ and [dot] with .
         &nbsp;&middot;&nbsp;
         <a href="https://shutasuzuki.com">shutasuzuki.com</a>
       </span>
