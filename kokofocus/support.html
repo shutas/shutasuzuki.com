@@ -75,10 +75,11 @@
     header { border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 32px; }
     h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
     .subtitle { color: var(--muted); font-size: 15px; margin: 0; }
+    h2, h3 { scroll-margin-top: 64px; }
     h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin: 40px 0 12px; }
     h3 { font-size: 17px; font-weight: 600; margin: 28px 0 6px; }
     p, li { color: var(--fg); }
-    ul { padding-left: 22px; }
+    ul, ol { padding-left: 22px; }
     li { margin-bottom: 6px; }
     a { color: var(--accent); }
     code {
@@ -87,6 +88,7 @@
       background: var(--bg-elev);
       padding: 2px 6px;
       border-radius: 5px;
+      overflow-wrap: anywhere;
     }
     .summary {
       background: transparent;
@@ -101,6 +103,9 @@
       padding: 18px 22px;
       margin: 20px 0 28px;
     }
+    ol.steps { padding-left: 42px; }
+    ol.steps li { padding-left: 3px; margin-bottom: 12px; }
+    ol.steps li:last-child { margin-bottom: 0; }
     .steps p { margin: 0 0 10px; }
     .steps p:last-child { margin-bottom: 0; }
     .key {
@@ -142,7 +147,7 @@
     <header>
       <h1>Support</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Requires macOS 26 or later. This guide covers the upcoming version 1.2.1. Version 1.2 is available now; 1.2.1 adds the sharing and menu refinements described below.</p>
+      <p class="subtitle">Requires macOS 26 or later. Version 1.2.1 is available now. The single-window guide below previews version 1.2.2, which is awaiting App Store review.</p>
     </header>
 
     <div class="summary">
@@ -150,7 +155,7 @@
     </div>
 
     <h2>Getting started</h2>
-    <p>kokofocus normally lives in your menu bar. Its six-circle icon fills in when the app is on. In 1.2.1, the menu shows only Turn On kokofocus and its shortcut hint while the app is off. A Dock icon appears while Window Share setup or a presentation is open.</p>
+    <p>kokofocus normally lives in your menu bar. Its six-circle icon fills in when the app is on. The menu shows only Turn On kokofocus and its shortcut hint while the app is off. A Dock icon appears during single-window setup or a presentation.</p>
     <div class="steps">
       <p><strong>Open the tool ring.</strong> Hold <span class="key">Control</span>, then press and hold the mouse button. A circular menu appears at your cursor.</p>
       <p><strong>Choose a tool.</strong> Flick toward it and release. Release in the middle to cancel.</p>
@@ -167,12 +172,35 @@
 
     <p>Use the × beside a tool to clear its shortcut, or <strong>Reset to Default Settings</strong> to restore all six. This changes shortcuts only. Assignments without Command or Control show a warning about typing conflicts, and unavailable macOS combinations remain saved with a warning.</p>
 
-    <h2>Sharing your screen</h2>
+    <h2 id="sharing">Sharing your screen</h2>
     <p><strong>Share your whole display</strong> and your annotations appear automatically. Nothing else to configure.</p>
-    <p><strong>To share one window,</strong> choose <strong>Window Share (beta)…</strong> from the menu. The <strong>Choose a window to annotate</strong> popup opens in front. Click <strong>Choose a Window…</strong>, then select the original app window in the macOS picker. Confirm macOS’s sharing offer when available, or click <strong>OK</strong> to close the instructions and select <strong>kokofocus — Share This Window</strong> in your meeting’s window picker. When macOS reports that the presentation is being shared, kokofocus returns you to the original app to annotate. There is no separate Start Presenting step in version 1.2.</p>
-    <p>The meeting must capture kokofocus’s presentation window to include the annotations. When macOS reports that this window is no longer being shared, kokofocus stops Window Share and stays on for normal annotation with your selected tool. Starting another share shows the window-choice instructions again. For clients that do not report sharing status, use Stop Window Share from the menu. Window Share remains in beta; Webex’s native macOS picker path has been checked with a remote participant, while Zoom and Teams still need live conference validation.</p>
-    <p>Window Share includes video only. Annotations keep their size and position from the source window’s top-left when you resize it; they do not follow scrolling or changes in page layout.</p>
-    <p><strong>Webex:</strong> single-window sharing requires the Mac system picker. To avoid missing annotations, a large white border, or interrupted sharing, enable <strong>Settings → Sharing Content → Use the Mac system screen sharing picker</strong>. After changing this setting, fully restart Webex and rejoin the meeting. In 1.2.1, setup detects when Webex is running and shows these steps with a Show Webex button. kokofocus cannot read Webex’s private setting, so the reminder appears for each new share.</p>
+
+    <h3 id="single-window">Annotate a Single Window (beta)</h3>
+    <p><strong>Coming in version 1.2.2:</strong> separate guides for Microsoft Teams, Webex, and Zoom. Each uses short instructions and an animation. Finish the step on screen, then click the button to continue.</p>
+    <p>In the current App Store version, 1.2.1, this menu is called <strong>Window Share (beta)…</strong> and setup appears in one panel. After choosing your window, its <strong>OK</strong> button closes the instructions so you can start sharing in your meeting app.</p>
+    <h3 id="webex">Webex</h3>
+    <p class="subtitle">Version 1.2.2 guide · Awaiting App Store review</p>
+    <ol class="steps">
+      <li><strong>Stop sharing first.</strong> End any active screen or window share in Webex. In kokofocus’s menu, choose <strong>Annotate a Single Window (beta) → Webex</strong>.</li>
+      <li><strong>Enable the Mac picker.</strong> In Webex, open <strong>Settings → Sharing Content</strong> and turn on <strong>Use the Mac system screen sharing picker</strong>.</li>
+      <li><strong>If you changed the setting, restart Webex.</strong> Fully quit and reopen Webex, then rejoin your meeting.</li>
+      <li><strong>Choose your app window in kokofocus.</strong> Click <strong>Choose a Window…</strong>, then select the original app window you want to annotate in the macOS picker.</li>
+      <li><strong>Share that same window in Webex.</strong> Click <strong>Continue to Sharing</strong>, then click <strong>Share</strong> in Webex. When the Mac picker appears, click <strong>the same window on your desktop that you just chose in kokofocus</strong>.</li>
+    </ol>
+    <p>Your pointer and drawings appear in the shared window. Keep working in your original app.</p>
+
+    <h3 id="teams-and-zoom">Microsoft Teams and Zoom</h3>
+    <p class="subtitle">Version 1.2.2 guide · Awaiting App Store review</p>
+    <ol class="steps">
+      <li><strong>Stop sharing first.</strong> End any active screen or window share in your meeting app. In kokofocus’s menu, choose <strong>Annotate a Single Window (beta)</strong>, then <strong>Microsoft Teams</strong> or <strong>Zoom</strong>.</li>
+      <li><strong>Choose your app window in kokofocus.</strong> Click <strong>Choose a Window…</strong>, then select the original app window in the macOS picker.</li>
+      <li><strong>Share the annotated window.</strong> Confirm macOS’s sharing offer when available. Otherwise, click <strong>Continue to Sharing</strong>, open <strong>Share</strong> in your meeting app, and select <strong>kokofocus — Share This Window</strong>.</li>
+    </ol>
+
+    <h3>While you’re sharing</h3>
+    <p>When macOS reports that sharing has started, kokofocus returns you to the original app so you can annotate and present. When macOS reports that sharing has ended, kokofocus closes the window share and stays on with your selected tool. You can also choose <strong>Stop Window Share (beta)</strong> from the menu; use this if your meeting app does not report when sharing stops.</p>
+    <p>Single-window annotation includes video only. Annotations keep their size and position from the window’s top-left when you resize it; they do not follow scrolling or changes in page layout.</p>
+    <p>This feature remains in beta, and behavior can vary by meeting app. If you have trouble, sharing your whole display also includes your annotations.</p>
     <p>The tool menu and tool indicator are excluded from captures by default. You can include them from <strong>Settings → Appearance</strong> when recording a tutorial.</p>
 
     <h2>Updates</h2>
