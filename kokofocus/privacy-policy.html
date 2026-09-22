@@ -123,7 +123,7 @@
     <header>
       <h1>Privacy Policy</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Last updated: September 19, 2026</p>
+      <p class="subtitle">Last updated: September 23, 2026</p>
     </header>
 
     <div class="summary">
@@ -134,8 +134,7 @@
     <p>The developer does not collect personal information, device identifiers, usage metrics, diagnostics, annotations, or screen content through kokofocus. There is no developer-operated service, analytics SDK, or crash reporter in the app.</p>
 
     <h2>Update checks and network activity</h2>
-    <p>Version 1.0 makes no network requests. Version 1.1 checks for updates only when requested. Version 1.2 introduces the automatic checks described below.</p>
-    <p>kokofocus contacts Apple’s public catalog over HTTPS to check for a newer release. Automatic checks are enabled by default: when due at launch, once a day while the app is open, and after waking. A failed check can retry after an hour. You can turn off automatic checks in Settings → General and check manually from the menu.</p>
+    <p>kokofocus contacts Apple’s public catalog over HTTPS to check for a newer release. Automatic checks are enabled by default and run at the top of each hour while kokofocus is on. At startup, when turning on, and after waking, the app also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off; none run when the app is quit. Failed checks retry at the next hour. You can turn off automatic checks in Settings → General and check manually from the menu.</p>
     <p>The request contains kokofocus’s public App Store ID and your Mac’s region code. It sends no account information, device identifier, preferences, annotations, or captured frames, and uses no cookies. Apple receives normal connection information, such as your IP address. The temporary network session does not cache responses on disk; the latest available release details are stored locally to keep the update notice available between launches.</p>
     <p>Choosing Update in App Store opens Apple’s listing. Apple handles downloading, installation, and any App Store account activity under its own policies.</p>
 
@@ -145,27 +144,27 @@
     <h2>Data stored on your device</h2>
     <ul>
       <li>Your selected tool, color, laser size, stroke weight, fills, and fade settings.</li>
-      <li>Your menu background, menu gesture, hold length, and tool shortcuts.</li>
+      <li>Your menu background, menu gesture, hold length, and tool and annotation-action shortcuts.</li>
       <li>Tutorial preferences and whether controls should appear in captures.</li>
-      <li>Whether automatic update checks are enabled, the next check time, the latest available release details, and the last version notified.</li>
+      <li>Whether automatic update checks are enabled, the last hourly check attempt, the latest available release details, and the last version shown automatically in the update window. Older scheduling and notification preferences may remain locally after an upgrade.</li>
     </ul>
     <p>These settings are stored locally in the app’s sandbox container. Annotations and captured frames are not saved as documents. To reset stored settings, quit kokofocus and remove <code>~/Library/Containers/com.shutas.kokofocus</code>.</p>
 
     <h2>Permissions and input</h2>
-    <p>Display annotation does not require Accessibility, Input Monitoring, or blanket Screen Recording access. Window Share asks you to choose a source in the macOS picker. When an update is first available, macOS may ask whether kokofocus can show notifications. Denying notifications leaves the update notice in the app’s menu.</p>
-    <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Typed content is not recorded or stored. The app does not request camera, microphone, location, contacts, or personal-file access.</p>
+    <p>Display annotation does not require Accessibility, Input Monitoring, or blanket Screen Recording access. Window Share asks you to choose a source in the macOS picker. A newer compatible release opens the update window once and remains available in the menu. This does not request notification permission.</p>
+    <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool and annotation-action shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Typed content is not recorded or stored. The app does not request camera, microphone, location, contacts, or personal-file access.</p>
 
     <h2>What your audience sees</h2>
-    <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, select kokofocus’s presentation window in the meeting app. The command menu and tool indicator are excluded from captures by default; you can include them in Settings → Appearance when recording a tutorial.</p>
+    <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, follow the setup guide for your meeting app. In Webex’s Mac picker, click the same visible window you chose in kokofocus; Teams and Zoom select the kokofocus presentation window. The command menu and tool indicator are excluded from captures by default; you can include them in Settings → Appearance when recording a tutorial.</p>
 
     <h2>Third-party components and tracking</h2>
-    <p>kokofocus uses Apple’s system frameworks and the open-source KeyboardShortcuts library for tool shortcuts. It includes no analytics, advertising, or tracking SDKs and uses no advertising identifier. No account is required.</p>
+    <p>kokofocus uses Apple’s system frameworks and the open-source KeyboardShortcuts library for configurable shortcuts. It includes no analytics, advertising, or tracking SDKs and uses no advertising identifier. No account is required.</p>
 
     <h2>Children’s privacy</h2>
     <p>The app does not collect personal information from users, including children.</p>
 
     <h2>Your choices</h2>
-    <p>You can disable automatic update checks, deny notification permission, stop a window-sharing session, or clear local settings at any time. Because the developer receives no app-collected personal data, there is no such data for the developer to export or delete.</p>
+    <p>You can disable automatic update checks, stop a window-sharing session, or clear local settings at any time. Because the developer receives no app-collected personal data, there is no such data for the developer to export or delete.</p>
 
     <h2>Changes to this policy</h2>
     <p>Changes will be published at this URL with an updated date and a description that reflects the app’s behavior.</p>

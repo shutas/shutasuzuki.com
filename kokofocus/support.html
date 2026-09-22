@@ -147,7 +147,7 @@
     <header>
       <h1>Support</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Requires macOS 26 or later. This guide covers version 1.2.2, available on the Mac App Store.</p>
+      <p class="subtitle">Requires macOS 26 or later. This guide covers version 1.2.3, available on the Mac App Store.</p>
     </header>
 
     <div class="summary">
@@ -167,10 +167,11 @@
 
     <h2>Settings</h2>
     <p><strong>General</strong> controls the menu gesture, double-tap shortcut, hold length, and automatic update checks.</p>
-    <p><strong>Appearance</strong> contains the menu background, color, laser size, stroke weight, shape fills, automatic fading, and whether controls appear in screen captures. Choose Light, Dark, Liquid Glass, or Transparent with a live preview. Liquid Glass is the default; saved choices are preserved.</p>
-    <p><strong>Shortcuts</strong> lets you assign a key or combination to each tool. The defaults are Control-P (Pointer), Control-L (Laser), Control-A (Arrow), Control-I (Line), Control-R (Rectangle), and Control-E (Ellipse). Shortcuts work while kokofocus is on and pause during its settings, tutorial, and sharing setup.</p>
+    <p><strong>Appearance</strong> contains the menu background, color, laser size, stroke weight, shape fills, automatic fading, and whether controls appear in screen captures. Choose Light, Dark, Liquid Glass, or Transparent with a live preview. Liquid Glass is the default; saved choices are preserved. Transparent uses the same button surfaces, highlights, and reveal effects without the circular background disk.</p>
+    <p><strong>Shortcuts</strong> lets you assign a key or combination to each tool and to Undo, Redo, and Clear. Tool defaults are Control-P (Pointer), Control-L (Laser), Control-A (Arrow), Control-I (Line), Control-R (Rectangle), and Control-E (Ellipse). Action defaults are Control-Z (Undo), Control-Shift-Z (Redo), and Control-Delete (Clear), leaving Command-Z available to the app you are presenting. Actions affect the current annotations and leave your selected tool unchanged.</p>
+    <p>Shortcuts work while kokofocus is on and pause during its settings, tutorial, and sharing setup. After the sharing guide is dismissed, a tool shortcut can also start annotation when screen recording is already active.</p>
 
-    <p>Use the × beside a tool to clear its shortcut, or <strong>Reset to Default Settings</strong> to restore all six. This changes shortcuts only. Assignments without Command or Control show a warning about typing conflicts, and unavailable macOS combinations remain saved with a warning.</p>
+    <p>Use the × beside a tool or action to clear its shortcut, or <strong>Reset to Default Settings</strong> to restore all nine defaults. This changes shortcuts only. Assignments without Command or Control show a warning about typing conflicts, and unavailable macOS combinations remain saved with a warning.</p>
 
     <h2 id="sharing">Sharing your screen</h2>
     <p><strong>Share your whole display</strong> and your annotations appear automatically. Nothing else to configure.</p>
@@ -180,8 +181,8 @@
     <h3 id="webex">Webex</h3>
     <ol class="steps">
       <li><strong>Stop sharing first.</strong> End any active screen or window share in Webex. In kokofocus’s menu, choose <strong>Annotate a Single Window (beta) → Webex</strong>.</li>
-      <li><strong>Enable the Mac picker.</strong> In Webex, open <strong>Settings → Sharing Content</strong> and turn on <strong>Use the Mac system screen sharing picker</strong>.</li>
-      <li><strong>If you changed the setting, restart Webex.</strong> Fully quit and reopen Webex, then rejoin your meeting.</li>
+      <li><strong>Prepare Webex.</strong> Open <strong>Settings → Sharing Content</strong> and turn on <strong>Use the Mac system screen sharing picker</strong>. In the same settings, select <strong>Best for video and motion</strong> for smoother laser movement. Shared text may look slightly less sharp.</li>
+      <li><strong>If you changed the picker setting, restart Webex.</strong> Fully quit and reopen Webex, then rejoin your meeting.</li>
       <li><strong>Choose your app window in kokofocus.</strong> Click <strong>Choose a Window…</strong>, then select the original app window you want to annotate in the macOS picker.</li>
       <li><strong>Share that same window in Webex.</strong> Click <strong>Continue to Sharing</strong>, then click <strong>Share</strong> in Webex. When the Mac picker appears, click <strong>the same window on your desktop that you just chose in kokofocus</strong>.</li>
     </ol>
@@ -195,14 +196,15 @@
     </ol>
 
     <h3>While you’re sharing</h3>
-    <p>When macOS reports that sharing has started, kokofocus returns you to the original app so you can annotate and present. When macOS reports that sharing has ended, kokofocus closes the window share and stays on with your selected tool. You can also choose <strong>Stop Window Share (beta)</strong> from the menu; use this if your meeting app does not report when sharing stops.</p>
+    <p>When macOS reports that sharing has started, kokofocus returns you to the original app so you can annotate and present. If screen recording or another capture is already active, first finish starting the share in your meeting, then choose <strong>Laser</strong> or a drawing tool from kokofocus’s menu or use its shortcut. The guide reminds you of this extra step when overlapping capture is detected.</p>
+    <p>When macOS reports that capture has ended, kokofocus closes the window share and stays on with your selected tool. If screen recording continues after your meeting stops sharing, choose <strong>Stop Window Share (beta)</strong> from the menu. Use this command too if your meeting app does not report when sharing stops.</p>
     <p>Single-window annotation includes video only. Annotations keep their size and position from the window’s top-left when you resize it; they do not follow scrolling or changes in page layout.</p>
     <p>This feature remains in beta, and behavior can vary by meeting app. If you have trouble, sharing your whole display also includes your annotations.</p>
     <p>The tool menu and tool indicator are excluded from captures by default. You can include them from <strong>Settings → Appearance</strong> when recording a tutorial.</p>
 
     <h2>Updates</h2>
-    <p>Automatic checks are on by default. kokofocus checks Apple’s catalog when due at launch, daily while open, and after waking. If a check fails, it retries after an hour. Turn this off in <strong>Settings → General</strong>, or use <strong>Check for Updates</strong> whenever you want.</p>
-    <p>A compatible new release adds an <strong>Update Available</strong> menu item. If you allow macOS notifications, you also receive one quiet notification per release. Click it to read the release details, then choose <strong>Update in App Store</strong>. The App Store installs the update; kokofocus does not download or install it itself.</p>
+    <p>Automatic checks are on by default. While kokofocus is <strong>on</strong>, it checks Apple’s catalog at the top of each hour, such as 10:00 and 11:00. At startup, when you turn it on, or after waking, it also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off and cannot run when the app is quit. Failed checks retry at the next hour. Turn automatic checks off in <strong>Settings → General</strong>, or use <strong>Check for Updates</strong> to check manually.</p>
+    <p>A newer compatible release opens the same window as <strong>Check for Updates</strong>, with release notes and an <strong>Update in App Store</strong> button. It opens automatically once per version, even across restarts, and remains available through the <strong>Update Available</strong> menu item. Notification permission is not needed. The App Store installs the update; kokofocus does not download or install it itself.</p>
 
     <h2>Common questions</h2>
     <h3>I selected Rectangle and now I cannot click my slides</h3>
@@ -216,7 +218,7 @@
     <h3>Can shapes disappear on their own?</h3>
     <p>Yes. Turn on <strong>Settings → Appearance → Fade shapes automatically</strong> and choose a duration from 2 to 30 seconds.</p>
     <h3>Does it need permissions or a connection?</h3>
-    <p>Display annotation needs no Accessibility or Input Monitoring permission. Window Share uses the macOS picker to authorize one source for the session. Update notifications require your permission; update checks contact Apple’s public catalog. No account or tracking is used. See the <a href="./privacy-policy.html">privacy policy</a>.</p>
+    <p>Display annotation needs no Accessibility or Input Monitoring permission. Window Share uses the macOS picker to authorize one source for the session. Update checks contact Apple’s public catalog; the update window does not require notification permission. No account or tracking is used. See the <a href="./privacy-policy.html">privacy policy</a>.</p>
 
     <h2>Resetting kokofocus</h2>
     <p>Your preferences live in the app&rsquo;s own sandbox container. To reset them without uninstalling, quit kokofocus and delete:</p>
