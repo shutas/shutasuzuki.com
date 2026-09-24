@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kokofocus — Privacy Policy</title>
-  <meta name="description" content="kokofocus processes annotations and selected-window frames locally. Update checks contact Apple’s catalog; no developer analytics or tracking.">
+  <meta name="description" content="kokofocus processes annotations and captured screen frames locally. Update checks contact Apple’s catalog; no developer analytics or tracking.">
   <link rel="canonical" href="https://shutasuzuki.com/kokofocus/privacy-policy.html">
   <link rel="shortcut icon" href="../assets/favicon.png">
   <link rel="apple-touch-icon" href="../assets/favicon.png">
@@ -123,11 +123,11 @@
     <header>
       <h1>Privacy Policy</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Last updated: September 23, 2026</p>
+      <p class="subtitle">Last updated: September 24, 2026</p>
     </header>
 
     <div class="summary">
-      <p><strong>Your presentation stays on your Mac.</strong> kokofocus has no account, analytics, advertising, or tracking. Annotations and selected-window frames are processed locally. Update checks contact Apple’s public App Store catalog; your meeting app handles anything you choose to share.</p>
+      <p><strong>Your presentation stays on your Mac.</strong> kokofocus has no account, analytics, advertising, or tracking. Annotations, magnified display content, and selected-window frames are processed locally. Update checks contact Apple’s public App Store catalog; your meeting app handles anything you choose to share.</p>
     </div>
 
     <h2>Data received by the developer</h2>
@@ -141,21 +141,24 @@
     <h2>Window Share (beta)</h2>
     <p>Window Share uses Apple’s system picker to authorize one selected source for the session. Frames are processed in memory and combined with your pointer and annotations in a kokofocus presentation window. kokofocus does not record those frames or upload them. Your meeting app shares the presentation when you select it there; its own privacy settings and policies apply.</p>
 
+    <h2>Magnifying Glass (version 1.3 and later)</h2>
+    <p>Magnifying Glass uses Apple’s ScreenCaptureKit to enlarge the area around your mouse. Display magnification requires Screen Recording permission, which you can grant or revoke in macOS System Settings. The tutorial provides a link to this setting. The capture excludes kokofocus’s own windows to avoid visual feedback, uses no audio, and stops when you leave the tool or turn kokofocus off. Frames remain in memory; they are not recorded to disk or uploaded. During Window Share, the magnifier reuses the already-authorized source window’s frames.</p>
+
     <h2>Data stored on your device</h2>
     <ul>
-      <li>Your selected tool, color, laser size, stroke weight, fills, and fade settings.</li>
-      <li>Your menu background, menu gesture, hold length, and tool and annotation-action shortcuts.</li>
+      <li>Your tool preferences, including colors, named custom colors, sizes, stroke weights, opacity, fills, fading, magnification, and shape modifiers.</li>
+      <li>Your disk’s selected tools and positions, menu background, menu gesture, hold length, and tool and annotation-action shortcuts.</li>
       <li>Tutorial preferences and whether controls should appear in captures.</li>
       <li>Whether automatic update checks are enabled, the last hourly check attempt, the latest available release details, and the last version shown automatically in the update window. Older scheduling and notification preferences may remain locally after an upgrade.</li>
     </ul>
     <p>These settings are stored locally in the app’s sandbox container. Annotations and captured frames are not saved as documents. To reset stored settings, quit kokofocus and remove <code>~/Library/Containers/com.shutas.kokofocus</code>.</p>
 
     <h2>Permissions and input</h2>
-    <p>Display annotation does not require Accessibility, Input Monitoring, or blanket Screen Recording access. Window Share asks you to choose a source in the macOS picker. A newer compatible release opens the update window once and remains available in the menu. This does not request notification permission.</p>
+    <p>No tool requires Accessibility or Input Monitoring permission. Display magnification in version 1.3 requires Screen Recording permission; the other display tools do not. Window Share asks you to choose a source in the macOS picker. A newer compatible release opens the update window once and remains available in the menu. This does not request notification permission.</p>
     <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool and annotation-action shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Typed content is not recorded or stored. The app does not request camera, microphone, location, contacts, or personal-file access.</p>
 
     <h2>What your audience sees</h2>
-    <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, follow the setup guide for your meeting app. In Webex’s Mac picker, click the same visible window you chose in kokofocus; Teams and Zoom select the kokofocus presentation window. The command menu and tool indicator are excluded from captures by default; you can include them in Settings → Appearance when recording a tutorial.</p>
+    <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, follow the setup guide for your meeting app. In Webex’s Mac picker, click the same visible window you chose in kokofocus; Teams and Zoom select the kokofocus presentation window. The command menu and tool indicator are excluded from captures by default; you can include them in Settings → General when recording a tutorial (Settings → Appearance in versions before 1.3).</p>
 
     <h2>Third-party components and tracking</h2>
     <p>kokofocus uses Apple’s system frameworks and the open-source KeyboardShortcuts library for configurable shortcuts. It includes no analytics, advertising, or tracking SDKs and uses no advertising identifier. No account is required.</p>
@@ -164,7 +167,7 @@
     <p>The app does not collect personal information from users, including children.</p>
 
     <h2>Your choices</h2>
-    <p>You can disable automatic update checks, stop a window-sharing session, or clear local settings at any time. Because the developer receives no app-collected personal data, there is no such data for the developer to export or delete.</p>
+    <p>You can disable automatic update checks, leave Magnifying Glass, revoke Screen Recording permission, stop a window-sharing session, or clear local settings at any time. Because the developer receives no app-collected personal data, there is no such data for the developer to export or delete.</p>
 
     <h2>Changes to this policy</h2>
     <p>Changes will be published at this URL with an updated date and a description that reflects the app’s behavior.</p>
