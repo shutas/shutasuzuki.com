@@ -169,6 +169,16 @@
     <p><strong>Pen</strong> draws freehand ink, and <strong>Highlighter</strong> draws wider translucent strokes. <strong>Halo</strong> surrounds your mouse with a ring. <strong>Spotlight</strong> darkens the screen outside the area around your mouse. <strong>Magnifying Glass</strong> enlarges live screen details. Halo, Spotlight, and Magnifying Glass let normal clicks reach your app.</p>
     <p>Magnifying Glass needs Screen Recording permission for display content. Open <strong>Settings → Tools → Magnifying Glass → Permission Settings</strong> to see whether access is enabled and to open the macOS Screen Recording settings. If you grant access while kokofocus is open, select Magnifying Glass again to retry capture. Tutorial also links to the permission setting. Other display tools do not need this permission. Window Share authorizes its selected source through Apple’s picker. Frames stay in memory and are not recorded or uploaded by kokofocus.</p>
 
+    <h3 id="magnifier-permission">Magnifying Glass still says Screen Recording is disabled</h3>
+    <p>If macOS shows Screen Recording as enabled but kokofocus still cannot use Magnifying Glass after a restart, its saved permission may be out of date. Try these steps:</p>
+    <ol class="steps">
+      <li>Quit kokofocus.</li>
+      <li>Open <strong>System Settings → Privacy &amp; Security → Screen &amp; System Audio Recording</strong>. Select <strong>kokofocus</strong> and click the <strong>−</strong> button below the list to remove it. If it is not listed, continue to the next step.</li>
+      <li>Click <strong>+</strong>, choose <code>/Applications/kokofocus.app</code>, and turn on Screen Recording for it. Enter your Mac password if asked.</li>
+      <li>Reopen kokofocus and select Magnifying Glass. Its status under <strong>Settings → Tools → Magnifying Glass → Permission Settings</strong> should now say Enabled.</li>
+    </ol>
+    <p>If it still says Disabled, quit kokofocus and enter <code>tccutil reset ScreenCapture com.shutas.kokofocus</code> in Terminal. This clears macOS&rsquo;s Screen Recording decision for the App Store copy; it does not erase your tool settings. Reopen kokofocus, select Magnifying Glass, and allow Screen Recording when macOS asks. Apple documents this <a href="https://developer.apple.com/documentation/xcode/resetting-access-to-protected-resources-in-macos">permission reset command</a>. If the problem continues, please contact us below.</p>
+
     <h2>Settings</h2>
     <p><strong>General</strong> brings together the disk’s tools and background. Choose Light, Dark, Liquid Glass, or Transparent. It also controls the menu gesture, double-tap shortcut, hold length, and automatic update checks. Turn on <strong>Show circular menu in screen shares</strong> to let viewers see the menu while it is open, along with brief tool-change notices, in full-display shares and the kokofocus presentation window.</p>
     <p><strong>Tools</strong> lists every available tool. Select one to adjust its appearance and try the live preview. Move the mouse within a cursor-tool preview; hold the left mouse button and drag to test ink. Depending on the tool, controls include color, size, width, opacity, fill, fading, and magnification. Pointer and Laser each have a separate <strong>Show click ripple</strong> setting. Dependent settings are dimmed until enabled. Click an information icon to read about a setting.</p>
@@ -224,10 +234,6 @@
     <p>Yes. Select the tool in <strong>Settings → Tools</strong>, enable automatic fading, and choose a duration from 2 to 30 seconds. Earlier versions keep this control in Settings → Appearance.</p>
     <h3>Does it need permissions or a connection?</h3>
     <p>No tool needs Accessibility or Input Monitoring permission. Magnifying Glass needs Screen Recording permission for display content. Window Share uses the macOS picker to authorize one source for the session. Update checks contact Apple’s public catalog; the update window does not require notification permission. No account or tracking is used. See the <a href="./privacy-policy.html">privacy policy</a>.</p>
-
-    <h2>Resetting kokofocus</h2>
-    <p>Your preferences live in the app&rsquo;s own sandbox container. To reset them without uninstalling, quit kokofocus and delete:</p>
-    <p><code>~/Library/Containers/com.shutas.kokofocus</code></p>
 
     <h2>Contact</h2>
     <p>Questions, bugs or requests: shutas [at] umich [dot] edu. Replace <code>[at]</code> with <code>@</code> and <code>[dot]</code> with <code>.</code>.</p>
