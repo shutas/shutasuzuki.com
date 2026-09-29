@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>kokofocus — Point and draw on your screen</title>
-  <meta name="description" content="A laser pointer and drawing tools for your Mac, reached with one gesture. Try the tools right here in your browser.">
-  <meta name="keywords" content="kokofocus, Mac presentation tool, screen annotation, laser pointer, macOS, screen sharing, annotate, teach, demo">
+  <title>kokofocus — Screen annotation and presentation timer for Mac</title>
+  <meta name="description" content="Draw over your Mac screen, guide attention with a laser pointer, and keep presentations on time with a timer, stopwatch, or clock. Free on the Mac App Store.">
+  <meta name="keywords" content="kokofocus, Mac presentation tool, screen annotation, laser pointer, presentation timer, stopwatch, clock, macOS, screen sharing, annotate, teach, demo">
   <meta name="theme-color" content="#000000">
   <link rel="canonical" href="https://shutasuzuki.com/kokofocus/">
   <link rel="shortcut icon" href="../assets/favicon.png">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="kokofocus — Point and draw on your screen">
   <meta property="og:site_name" content="kokofocus">
-  <meta property="og:description" content="Point and draw on your Mac screen with a laser pointer and four shapes, reached with one gesture. Try the tools right here in your browser.">
+  <meta property="og:description" content="Draw, point, and keep your presentation on time. Screen annotation, a laser pointer, and a customizable timer, stopwatch, or clock for Mac.">
   <meta property="og:image" content="https://shutasuzuki.com/assets/kokofocus-icon.png">
 
   <script type="application/ld+json">
@@ -26,6 +26,7 @@
       "name": "kokofocus",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "macOS 26+",
+      "softwareVersion": "1.4.0",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "author": { "@type": "Person", "name": "Shuta Suzuki", "url": "https://shutasuzuki.com" },
       "url": "https://shutasuzuki.com/kokofocus/",
@@ -204,6 +205,15 @@
       100% { stroke-dashoffset: 0; opacity: 1; }
     }
 
+
+    .hero-summary { max-width: 660px; margin: 16px auto 24px; color: var(--fg-muted); }
+    .release { max-width: 1044px; margin: 48px auto 80px; padding: 0 22px; }
+    .release-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+    .release h2 { font-size: clamp(28px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.025em; margin: 0 0 18px; }
+    .release p { color: var(--fg-muted); }
+    .release .eyebrow { color: var(--accent); }
+    .release img { width: 100%; height: auto; border-radius: 16px; }
+    @media (max-width: 720px) { .release-grid { grid-template-columns: 1fr; gap: 24px; } }
 
     /* Mac App Store badge */
     .btn-appstore {
@@ -630,6 +640,7 @@
         <path d="M6 15 C 70 6, 150 6, 210 12 S 320 18, 354 9" />
       </svg>
     </div>
+    <p class="hero-summary">Draw attention to the right place. Keep your presentation on time with a timer, stopwatch, or clock. Now in version 1.4.0.</p>
     <div class="hero-cta">
       <a class="btn-appstore" href="https://apps.apple.com/app/kokofocus/id6808890982" target="_blank" rel="noopener noreferrer" aria-label="Download kokofocus on the Mac App Store">
         <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
@@ -734,6 +745,19 @@
           <span class="label-lg">Mac App Store</span>
         </span>
       </a>
+    </div>
+  </section>
+
+  <section class="release" aria-labelledby="clockHeading">
+    <div class="release-grid">
+      <div>
+        <p class="eyebrow">New in 1.4.0</p>
+        <h2 id="clockHeading">Own the room.<br>And the time.</h2>
+        <p>A countdown for your talk, a stopwatch with lap times, or a clock for another time zone. Move it, resize it, and choose colors that fit your presentation. Its controls stay right on the clock.</p>
+        <p>Keep it visible while you use other tools, including in a display share or an annotated window. Animated Halo effects help guide attention with pulses, ripples, spins, and orbiting dots.</p>
+        <a href="./support.html#clock">Explore the Clock tool and settings →</a>
+      </div>
+      <img src="../assets/kokofocus-clock-1.4.0.png" width="2880" height="1800" loading="lazy" alt="Three examples of the Clock tool: a countdown timer, a stopwatch with lap splits, and a time-zone clock. Each canvas supports one clock.">
     </div>
   </section>
 

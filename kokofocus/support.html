@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kokofocus — Support</title>
-  <meta name="description" content="Help and answers for kokofocus, the Mac presentation pointer and annotation tool.">
+  <meta name="description" content="Help and answers for kokofocus, the Mac screen annotation tool with a presentation timer, stopwatch, and clock.">
   <link rel="canonical" href="https://shutasuzuki.com/kokofocus/support.html">
   <link rel="shortcut icon" href="../assets/favicon.png">
   <link rel="apple-touch-icon" href="../assets/favicon.png">
@@ -147,7 +147,7 @@
     <header>
       <h1>Support</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Requires macOS 26 or later. This guide covers version 1.3.3, available on the Mac App Store.</p>
+      <p class="subtitle">Requires macOS 26 or later. This guide covers version 1.4.0, available on the Mac App Store.</p>
     </header>
 
     <div class="summary">
@@ -166,7 +166,7 @@
     <p>The disk starts with Pointer, Laser, Arrow, Line, Rectangle, and Ellipse. In Settings → General, drag tools into its five editable positions; Pointer always stays at the top. Hover over a configured tool and click its × to remove it, or drag between positions to swap. Tools already on the disk are dimmed in the available list. The inner ring has Undo, Redo, and Clear. Clearing is undoable. Reopen Tutorial from the menu at any time.</p>
 
     <h2>More tools</h2>
-    <p><strong>Pen</strong> draws freehand ink, and <strong>Highlighter</strong> draws wider translucent strokes. <strong>Halo</strong> surrounds your mouse with a ring and can show an optional click ripple. <strong>Spotlight</strong> darkens the screen outside the area around your mouse. <strong>Magnifying Glass</strong> enlarges live screen details. Halo, Spotlight, and Magnifying Glass let normal clicks reach your app.</p>
+    <p><strong>Pen</strong> draws freehand ink, and <strong>Highlighter</strong> draws wider translucent strokes. <strong>Halo</strong> surrounds your mouse with a ring and can show an optional click ripple. In Settings → Tools → Halo, choose Steady, Pulse, Ripple outward or inward, Spin clockwise or counterclockwise, or Orbit. Animation speed ranges from 0.25× to 3×; Reduce Motion uses a steady ring. <strong>Spotlight</strong> darkens the screen outside the area around your mouse. <strong>Magnifying Glass</strong> enlarges live screen details. Halo, Spotlight, and Magnifying Glass let normal clicks reach your app.</p>
     <p>Magnifying Glass needs Screen Recording permission for display content. Open <strong>Settings → Tools → Magnifying Glass → Permission Settings</strong> to see whether access is enabled and to open the macOS Screen Recording settings. If you grant access while kokofocus is open, select Magnifying Glass again to retry capture. Tutorial also links to the permission setting. Other display tools do not need this permission. Window Share authorizes its selected source through Apple’s picker. Frames stay in memory and are not recorded or uploaded by kokofocus.</p>
 
     <h3 id="magnifier-permission">Magnifying Glass still says Screen Recording is disabled</h3>
@@ -179,17 +179,29 @@
     </ol>
     <p>If it still says Disabled, quit kokofocus and enter <code>tccutil reset ScreenCapture com.shutas.kokofocus</code> in Terminal. This clears macOS&rsquo;s Screen Recording decision for the App Store copy; it does not erase your tool settings. Reopen kokofocus, select Magnifying Glass, and allow Screen Recording when macOS asks. Apple documents this <a href="https://developer.apple.com/documentation/xcode/resetting-access-to-protected-resources-in-macos">permission reset command</a>. If the problem continues, please contact us below.</p>
 
+    <h2 id="clock">Clock: timer, stopwatch, and current time</h2>
+    <p>Select <strong>Clock</strong> from the menu or use its default shortcut, <span class="key">Control-T</span>. Choose Timer, Stopwatch, or Clock from the mode menu on the object. Each annotation canvas supports one clock. Switching to another tool keeps it visible and running; Undo, Redo, and Clear include it.</p>
+    <div class="steps">
+      <p><strong>Timer.</strong> Scroll the hours, minutes, or seconds, or click a number to type. Durations range from zero to 24 hours. Start is available once the duration is greater than zero. Start, pause, and reset directly on the clock. Completion is silent and stays at zero.</p>
+      <p><strong>Stopwatch.</strong> Start, pause, reset, and record laps on the clock. The numbers make room for lap history only after you record the first lap. Scroll through splits and hover over a lap to see its total elapsed time.</p>
+      <p><strong>Clock.</strong> Show the current time in your system time zone or a selected city’s zone. The zone appears in the top-right corner. City selections follow daylight-saving changes automatically.</p>
+    </div>
+    <p>Drag the clock’s background to move it. Hover to reveal its corner guides, then drag an edge or corner to resize it while keeping its 16:10 proportions. Text stays sharp at large sizes. Clicks outside the clock reach your app without moving the clock. There is no separate control window.</p>
+    <p><strong>Settings → Tools → Clock</strong> starts with shared appearance, followed by settings for each mode. Choose text and background colors from presets or saved custom colors, including a Transparent background option, and adjust opacity. With Clock selected, text and background colors are also in the menu bar. Color changes preserve running timers and lap records.</p>
+    <p>Timer and Clock have separate <strong>Show seconds</strong> settings. Stopwatch always displays seconds; <strong>Show hundredths of a second</strong> controls the smaller units, including in lap times. Hiding timer seconds rounds the displayed minutes up until completion. Choose the current-time format (12-hour or 24-hour) and city time zone in the Clock section. The Settings preview lets you switch modes and try controls without changing your live clock.</p>
+    <p>The clock appears with your annotations in display shares and in Window Share. Turning kokofocus off clears the clock along with other annotations.</p>
+
     <h2>Settings</h2>
     <p><strong>General</strong> brings together the disk’s tools and background. Choose Light, Dark, Liquid Glass, or Transparent. It also controls the menu gesture, double-tap shortcut, hold length, and automatic update checks. The installed version appears beside <strong>Check for Updates</strong>. Turn on <strong>Show circular menu in screen shares</strong> to let viewers see the menu while it is open, along with brief tool-change notices, in full-display shares and the kokofocus presentation window.</p>
     <p><strong>Tools</strong> lists every available tool. Select one to adjust its appearance and try the live preview. Move the mouse within a cursor-tool preview; hold the left mouse button and drag to test ink. Depending on the tool, controls include color, size, width, opacity, fill, fading, and magnification. Pointer, Laser, and Halo each have a separate <strong>Show click ripple</strong> setting. Dependent settings are dimmed until enabled. Click an information icon to read about a setting.</p>
-    <p>Color controls offer five built-in colors and your saved custom colors. Use the standard color picker, give the color a name, then save it. Cancel closes the editor without saving. You can delete custom colors you no longer need. Rectangle and Ellipse use Shift for perfect squares and circles by default; choose a different modifier in their tool settings. Pointer settings also link to macOS’s native pointer controls.</p>
-    <p><strong>Shortcuts</strong> lets you customize every tool and Undo, Redo, and Clear. Defaults are Control-P (Pointer), Control-L (Laser), Control-A (Arrow), Control-I (Line), Control-R (Rectangle), Control-E (Ellipse), Control-D (Pen), Control-H (Highlighter), Control-M (Magnifying Glass), Control-O (Halo), and Control-S (Spotlight). Action defaults are Control-Z (Undo), Control-Shift-Z (Redo), and Control-Delete (Clear).</p>
+    <p>Color controls offer built-in colors and your saved custom colors. Clock adds White, Black, and Slate, with Transparent available for its background. Use the standard color picker, give the color a name, then save it. Cancel closes the editor without saving. You can delete custom colors you no longer need. Rectangle and Ellipse use Shift for perfect squares and circles by default; choose a different modifier in their tool settings. Pointer settings also link to macOS’s native pointer controls.</p>
+    <p><strong>Shortcuts</strong> lets you customize every tool and Undo, Redo, and Clear. Defaults are Control-P (Pointer), Control-L (Laser), Control-A (Arrow), Control-I (Line), Control-R (Rectangle), Control-E (Ellipse), Control-D (Pen), Control-H (Highlighter), Control-M (Magnifying Glass), Control-O (Halo), Control-S (Spotlight), and Control-T (Clock). Action defaults are Control-Z (Undo), Control-Shift-Z (Redo), and Control-Delete (Clear).</p>
     <p>Shortcuts work while kokofocus is on and pause while Settings is focused, Tutorial is open, or sharing setup is active. They preserve annotations when switching tools. Existing customized or cleared assignments survive upgrades. New defaults are added where available; conflicts use Control-Shift. A previous Clear All remains cleared.</p>
     <p>Use × beside a shortcut to clear it, or <strong>Reset to Default Settings</strong> to restore shortcut defaults without changing other settings. Assignments without Command or Control show a typing-conflict warning; combinations macOS cannot register remain saved with an availability warning.</p>
     <p>In version 1.2.3 and earlier, appearance controls are in the <strong>Appearance</strong> tab, the disk has the original six tools, and Laser passes clicks to the underlying app.</p>
 
     <h2 id="sharing">Sharing your screen</h2>
-    <p><strong>Share your whole display</strong> and your annotations appear automatically. Nothing else to configure.</p>
+    <p><strong>Share your whole display</strong> and your annotations and clock appear automatically. Nothing else to configure.</p>
 
     <h3 id="single-window">Annotate a Single Window (beta)</h3>
     <p>Choose Microsoft Teams, Webex, or Zoom for a guide tailored to your meeting app. Each uses short instructions and an animation. Finish the step on screen, then click the button to continue. Click <strong>Cancel</strong> to close the guide.</p>
@@ -219,7 +231,7 @@
 
     <h2>Updates</h2>
     <p>Automatic checks are on by default. While kokofocus is <strong>on</strong>, it checks Apple’s catalog at the top of each hour, such as 10:00 and 11:00. At startup, when you turn it on, or after waking, it also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off and cannot run when the app is quit. Failed checks retry at the next hour. Turn automatic checks off in <strong>Settings → General</strong>, or use <strong>Check for Updates</strong> to check manually.</p>
-    <p>A newer compatible release opens the same window as <strong>Check for Updates</strong>, with release notes and an <strong>Update in App Store</strong> button. It opens automatically once per version, even across restarts, and remains available through the <strong>Update Available</strong> menu item. Notification permission is not needed. The App Store installs the update; kokofocus does not download or install it itself.</p>
+    <p>A newer compatible release opens the same window as <strong>Check for Updates</strong>, with release notes and an <strong>Update in App Store</strong> button. It opens automatically once per version, even across restarts, and remains available through the <strong>Update Available</strong> menu item. An available update also adds a small downward-arrow badge over the menu bar icon, without widening it. Notification permission is not needed. The App Store installs the update; kokofocus does not download or install it itself.</p>
 
     <h2>Common questions</h2>
     <h3>I selected Rectangle and now I cannot click my slides</h3>
