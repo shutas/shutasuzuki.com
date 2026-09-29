@@ -123,7 +123,7 @@
     <header>
       <h1>Privacy Policy</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Last updated: September 24, 2026</p>
+      <p class="subtitle">Last updated: September 30, 2026</p>
     </header>
 
     <div class="summary">
@@ -135,11 +135,11 @@
 
     <h2>Update checks and network activity</h2>
     <p>kokofocus contacts Apple’s public catalog over HTTPS to check for a newer release. Automatic checks are enabled by default and run at the top of each hour while kokofocus is on. At startup, when turning on, and after waking, the app also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off; none run when the app is quit. Failed checks retry at the next hour. You can turn off automatic checks in Settings → General and check manually from the menu.</p>
-    <p>The request contains kokofocus’s public App Store ID and your Mac’s region code. It sends no account information, device identifier, preferences, annotations, or captured frames, and uses no cookies. Apple receives normal connection information, such as your IP address. The temporary network session does not cache responses on disk; the latest available release details are stored locally to keep the update notice available between launches.</p>
+    <p>The request contains kokofocus’s public App Store ID, the storefront region, the app’s catalog language, and the check time to bypass stale caches. It sends no account information, device identifier, tool settings, annotations, or captured frames, and uses no cookies. Apple receives normal connection information, such as your IP address. The temporary network session does not cache responses on disk; the latest available release details are stored locally to keep the update notice available between launches.</p>
     <p>Choosing Update in App Store opens Apple’s listing. Apple handles downloading, installation, and any App Store account activity under its own policies.</p>
 
     <h2>Window Share (beta)</h2>
-    <p>Window Share uses Apple’s system picker to authorize one selected source for the session. Frames are processed in memory and combined with your pointer and annotations in a kokofocus presentation window. kokofocus does not record those frames or upload them. Your meeting app shares the presentation when you select it there; its own privacy settings and policies apply.</p>
+    <p>Guided Window Share uses Apple’s system picker to authorize one selected source for the session. The optional Stage Frontmost Window shortcut requires Screen Recording permission to resolve and capture the window you have focused without opening that picker. The selected window identity is fixed before capture; an unavailable source is not replaced with another app or window. Frames are processed in memory and combined with your pointer and annotations in a kokofocus presentation window. kokofocus does not record those frames or upload them. Your meeting app shares the presentation when you select it there; its own privacy settings and policies apply.</p>
 
     <h2>Magnifying Glass (version 1.3 and later)</h2>
     <p>Magnifying Glass uses Apple’s ScreenCaptureKit to enlarge the area around your mouse. Display magnification requires Screen Recording permission, which you can grant or revoke in macOS System Settings. The tutorial provides a link to this setting. The capture excludes kokofocus’s own windows to avoid visual feedback, uses no audio, and stops when you leave the tool or turn kokofocus off. Frames remain in memory; they are not recorded to disk or uploaded. During Window Share, the magnifier reuses the already-authorized source window’s frames.</p>
@@ -147,18 +147,18 @@
     <h2>Data stored on your device</h2>
     <ul>
       <li>Your tool preferences, including colors, named custom colors, sizes, stroke weights, opacity, fills, fading, magnification, and shape modifiers.</li>
-      <li>Your disk’s selected tools and positions, menu background, menu gesture, hold length, and tool and annotation-action shortcuts.</li>
+      <li>Your disk’s selected tools and positions, menu background, menu gesture, hold length, and tool, annotation-action, and direct-staging shortcuts.</li>
       <li>Tutorial preferences and whether controls should appear in captures.</li>
-      <li>Whether automatic update checks are enabled, the last hourly check attempt, the latest available release details, and the last version shown automatically in the update window. Older scheduling and notification preferences may remain locally after an upgrade.</li>
+      <li>Whether automatic update checks are enabled, the last hourly check attempt, and the latest available release details. Older scheduling and automatic-popup preferences may remain locally after an upgrade; version 1.4.1 shows a quiet menu badge and opens update details only on request.</li>
     </ul>
     <p>These settings are stored locally in the app’s sandbox container. Annotations and captured frames are not saved as documents. To reset stored settings, quit kokofocus and remove <code>~/Library/Containers/com.shutas.kokofocus</code>.</p>
 
     <h2>Permissions and input</h2>
-    <p>No tool requires Accessibility or Input Monitoring permission. Magnifying Glass requires Screen Recording permission for display content; its settings show the current permission status and link to macOS System Settings. The other display tools do not require this permission. Window Share asks you to choose a source in the macOS picker. A newer compatible release opens the update window once and remains available in the menu. This does not request notification permission.</p>
-    <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool and annotation-action shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Typed content is not recorded or stored. The app does not request camera, microphone, location, contacts, or personal-file access.</p>
+    <p>No tool requires Accessibility or Input Monitoring permission. Magnifying Glass and direct window staging require Screen Recording permission, which can be managed in macOS System Settings. The other display tools do not require this permission. Guided Window Share asks you to choose a source in the macOS picker. A newer compatible release is indicated by a badge on the menu bar icon; update details open on request. This does not request notification permission.</p>
+    <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool, annotation-action, and direct-staging shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Typed content is not recorded or stored. The app does not request camera, microphone, location, contacts, or personal-file access.</p>
 
     <h2>What your audience sees</h2>
-    <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, follow the setup guide for your meeting app. In Webex’s Mac picker, click the same visible window you chose in kokofocus; Teams and Zoom select the kokofocus presentation window. The circular menu and brief tool-change notices are excluded from captures by default. You can include them in full-display shares and the kokofocus presentation window with Settings → General → Show circular menu in screen shares. Direct sharing of an app window in Webex does not include these controls.</p>
+    <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, use the setup guide or the direct-staging shortcut, then share the kokofocus presentation window in your meeting app. In Webex’s Mac picker, click the staged window on your desktop. The circular menu and brief tool-change notices are excluded from captures by default. You can include them in full-display shares and the kokofocus presentation window with Settings → General → Show circular menu in screen shares.</p>
 
     <h2>Third-party components and tracking</h2>
     <p>kokofocus uses Apple’s system frameworks and the open-source KeyboardShortcuts library for configurable shortcuts. It includes no analytics, advertising, or tracking SDKs and uses no advertising identifier. No account is required.</p>
