@@ -26,7 +26,7 @@
       "name": "kokofocus",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "macOS 26+",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "author": { "@type": "Person", "name": "Shuta Suzuki", "url": "https://shutasuzuki.com" },
       "url": "https://shutasuzuki.com/kokofocus/",
       "installUrl": "https://apps.apple.com/app/kokofocus/id6808890982"
@@ -716,7 +716,7 @@
         </select>
       </div>
       <div class="strip-group">
-        <span><kbd>Esc</kbd> Pointer, then clear &middot; <kbd>⌘Z</kbd> undo</span>
+        <span><kbd>Esc</kbd> Clear &amp; Pointer &middot; <kbd>⌘Z</kbd> undo</span>
       </div>
     </div>
 
@@ -1414,9 +1414,10 @@
         if (ev.repeat) { return; }
         ev.preventDefault();
         window.clearTimeout(holdTimer);
-        if (state.menu) { closeMenu(); state.hold = null; }
-        else if (state.tool !== 'pointer') { state.hold = null; state.draft = null; setTool('pointer'); }
-        else { clearAll(); }
+        closeMenu();
+        state.hold = null; state.draft = null;
+        clearAll();
+        setTool('pointer');
         return;
       }
       var shortcuts = { p: 'pointer', l: 'laser', a: 'arrow', i: 'line', r: 'rectangle', e: 'ellipse' };
