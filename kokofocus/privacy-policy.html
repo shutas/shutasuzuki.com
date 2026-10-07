@@ -123,18 +123,23 @@
     <header>
       <h1>Privacy Policy</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Last updated: October 6, 2026</p>
+      <p class="subtitle">Last updated: October 8, 2026</p>
     </header>
 
     <div class="summary">
-      <p><strong>Your presentation stays on your Mac.</strong> kokofocus has no account, analytics, advertising, or tracking. Annotations, including text and Smart Pen shape recognition, magnified display content, and selected-window frames are processed locally. Update checks contact Apple’s public App Store catalog; your meeting app handles anything you choose to share.</p>
+      <p><strong>Your presentation stays on your devices.</strong> kokofocus has no account, analytics, advertising, or tracking. Annotations, including text and Smart Pen shape recognition, magnified display content, and selected-window frames are processed locally. Optional iPad mirroring sends frames and input only between your paired devices over an encrypted local connection. Mac update checks contact Apple’s public App Store catalog; your meeting app handles conference sharing.</p>
     </div>
 
     <h2>Data received by the developer</h2>
     <p>The developer does not collect personal information, device identifiers, usage metrics, diagnostics, annotations, or screen content through kokofocus. There is no developer-operated service, analytics SDK, or crash reporter in the app.</p>
 
+    <h2>Draw with iPad (beta)</h2>
+    <p>This policy also applies to kokofocus Companion for iPad. Pairing is optional and starts only when you create a QR code on your Mac and scan it with the companion. A fresh, short-lived secret authenticates an encrypted local connection to one iPad. The code expires after five minutes and is not retained as a persistent credential.</p>
+    <p>The Mac sends the selected display, or only its composed presentation window when single-window annotation is active, to the paired iPad. The companion sends Pencil strokes, finger gestures, tool and color choices, text you enter, and clock commands back to your Mac. These frames and inputs stay in memory on your devices. They are not sent to the developer or a cloud service, and are not recorded. Closing a presentation stage disconnects the companion rather than exposing the desktop.</p>
+    <p>The Mac requires Screen Recording and Local Network access. The companion uses Camera access only to scan pairing QR codes and Local Network access to connect to your Mac. Camera images are not transmitted or recorded. Both devices must be on the same private local network. Disconnecting, locking a device, leaving the companion, or turning kokofocus off ends the session. A new connection requires a new QR code.</p>
+
     <h2>Update checks and network activity</h2>
-    <p>kokofocus contacts Apple’s public catalog over HTTPS to check for a newer release. Automatic checks are enabled by default and run at the top of each hour while kokofocus is on. At startup, when turning on, and after waking, the app also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off; none run when the app is quit. Failed checks retry at the next hour. You can turn off automatic checks in Settings → General and check manually from the menu.</p>
+    <p>The Mac app contacts Apple’s public catalog over HTTPS to check for a newer release. Automatic checks are enabled by default and run at the top of each hour while kokofocus is on. At startup, when turning on, and after waking, the app also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off; none run when the app is quit. Failed checks retry at the next hour. You can turn off automatic checks in Settings → General and check manually from the menu.</p>
     <p>The request contains kokofocus’s public App Store ID, the storefront region, the app’s catalog language, and the check time to bypass stale caches. It sends no account information, device identifier, tool settings, annotations, or captured frames, and uses no cookies. Apple receives normal connection information, such as your IP address. The temporary network session does not cache responses on disk; the latest available release details are stored locally to keep the update notice available between launches.</p>
     <p>Choosing Update in App Store opens Apple’s listing. Apple handles downloading, installation, and any App Store account activity under its own policies.</p>
 
@@ -155,7 +160,7 @@
 
     <h2>Permissions and input</h2>
     <p>No tool requires Accessibility or Input Monitoring permission. Magnifying Glass and direct window staging require Screen Recording permission, which can be managed in macOS System Settings. The other display tools do not require this permission. Guided Window Share asks you to choose a source in the macOS picker. A newer compatible release is indicated by a badge on the menu bar icon; update details open on request. This does not request notification permission.</p>
-    <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool, annotation-action, and direct-staging shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Text entered directly in the Text tool is used to draw your annotations and remains in memory while you use them. kokofocus does not capture text typed in other apps, save text annotations to disk, or upload them. The app does not request camera, microphone, location, contacts, or personal-file access.</p>
+    <p>The app reads cursor position, held modifier keys, mouse-button state, and Escape-key state to provide its presentation gestures. Tool, annotation-action, and direct-staging shortcuts use native hotkey registration, and the shortcut recorder reads the key combination you enter while recording. Text entered directly in the Text tool is used to draw your annotations and remains in memory while you use them. kokofocus does not capture text typed in other apps, save text annotations to disk, or upload them. The Mac app does not request camera, microphone, location, contacts, or personal-file access. The iPad companion requests only Camera and Local Network access for pairing and mirroring; it does not request microphone, location, contacts, or personal-file access.</p>
 
     <h2>What your audience sees</h2>
     <p>When sharing a whole display, your audience sees the annotations drawn over your content. For Window Share, use the setup guide or the direct-staging shortcut, then share the kokofocus presentation window in your meeting app. In Webex’s Mac picker, click the staged window on your desktop. The circular menu, brief tool-change notices, and Text selection guides are excluded from captures by default. The Text pointer badge follows this preference on the desktop. You can include them in full-display shares and the kokofocus presentation window with Settings → General → Show circular menu in screen shares.</p>
@@ -167,7 +172,7 @@
     <p>The app does not collect personal information from users, including children.</p>
 
     <h2>Your choices</h2>
-    <p>You can disable automatic update checks, leave Magnifying Glass, revoke Screen Recording permission, stop a window-sharing session, or clear local settings at any time. Because the developer receives no app-collected personal data, there is no such data for the developer to export or delete.</p>
+    <p>You can disconnect the iPad from either app, revoke Camera or Local Network access, disable automatic update checks, leave Magnifying Glass, revoke Screen Recording permission, stop a window-sharing session, or clear local settings at any time. Because the developer receives no app-collected personal data, there is no such data for the developer to export or delete.</p>
 
     <h2>Changes to this policy</h2>
     <p>Changes will be published at this URL with an updated date and a description that reflects the app’s behavior.</p>
@@ -176,7 +181,7 @@
     <p>kokofocus is developed and maintained by Shuta Suzuki. For help, see the <a href="./support.html">support page</a> or write to shutas [at] umich [dot] edu. Replace <code>[at]</code> with <code>@</code> and <code>[dot]</code> with <code>.</code>.</p>
 
     <footer>
-      <p>&copy; 2026 Shuta Suzuki. This policy applies to the kokofocus macOS app distributed via the Mac App Store.</p>
+      <p>&copy; 2026 Shuta Suzuki. This policy applies to kokofocus for macOS and kokofocus Companion for iPad, distributed through the App Store.</p>
     </footer>
   </main>
 </body>

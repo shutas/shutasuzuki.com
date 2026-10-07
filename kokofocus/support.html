@@ -147,7 +147,7 @@
     <header>
       <h1>Support</h1>
       <p class="subtitle">kokofocus — Point and draw on your screen</p>
-      <p class="subtitle">Requires macOS 26 or later. This guide covers version 1.4.4, available on the Mac App Store.</p>
+      <p class="subtitle">Requires macOS 26 or later. The iPad companion requires iPadOS 17 or later and a compatible Apple Pencil for drawing.</p>
     </header>
 
     <div class="summary">
@@ -254,6 +254,21 @@
     <p>Single-window annotation includes video only. Annotations keep their size and position from the window’s top-left when you resize it; they do not follow scrolling or changes in page layout.</p>
     <p>Window sharing behavior can vary by meeting app and capture method. If you have trouble, sharing your whole display also includes your annotations.</p>
     <p>The circular menu, brief tool-change notices, and Text selection guides are hidden from captures by default. The Text pointer badge follows this preference on the desktop. Turn on <strong>Settings → General → Show circular menu in screen shares</strong> to include them in a full-display share or the kokofocus presentation window, including the stage selected through Webex’s Mac picker.</p>
+
+    <h2 id="ipad">Draw with iPad (beta)</h2>
+    <p>Pair <strong>kokofocus Companion</strong> on iPad with <strong>kokofocus 1.5.0 or later</strong> on your Mac. The two apps are being submitted together; use this feature once both compatible App Store versions are available. The companion is not a standalone drawing app.</p>
+    <ol class="steps">
+      <li>Connect both devices to the same private local network. Guest networks, VPN-only connections, and networks that isolate devices can prevent pairing.</li>
+      <li>Turn on kokofocus on your Mac and choose <strong>Draw with iPad (beta)…</strong>. Allow Screen Recording and Local Network access, choose the display, and create a pairing code. If a presentation stage is active, only that window is mirrored.</li>
+      <li>Open the companion, tap <strong>Scan pairing code</strong>, and allow Camera and Local Network access. Scan the QR code on your Mac. No account, passcode, or second approval is needed. The code expires after five minutes and connects one iPad.</li>
+      <li>Use <strong>Apple Pencil</strong> to draw. Ink appears on both devices. Tool selection, line weight, and the Mac’s default and saved colors stay synchronized.</li>
+      <li>Hold a <strong>finger</strong> on the mirrored screen, flick toward a tool, and release. Fingers also move pointer effects and drag or pinch existing text and clocks. Pencil taps open text or clock settings; Pencil drags do not move objects.</li>
+    </ol>
+    <p>Laser, Halo, Spotlight, and Magnifying Glass follow your finger. Pointer indicates a location for your audience; it does not click other Mac apps. The physical Mac mouse takes over when moved. The circular menu follows your Mac’s layout, background, reveal speed, and hold duration. Undo, redo, and clear affect the active Mac canvas.</p>
+    <p>During single-window annotation, the companion shows the composed presentation window with its annotations and effects, even if another desktop window overlaps it. Closing the stage ends the connection. Starting a stage during display mirroring switches to that window and clears the old display image. If you stop sharing in a meeting while the iPad remains connected, use <strong>Stop Window Share</strong> explicitly.</p>
+    <p>Mac menus, focused Settings, and local text or clock editing temporarily pause remote input. Finish those interactions to resume. Disconnect from either app to end mirroring; completed annotations stay on the Mac. Leaving the companion, device lock, sleep, or turning kokofocus off also ends the session. Reconnect with a new QR code.</p>
+    <h3>Waiting for your Mac screen</h3>
+    <p>If no image arrives, check the capture message in the Mac’s pairing window and confirm Screen Recording access. A connection without its first image ends with a reconnect message after twenty seconds. If pairing itself fails, check Local Network access on both devices, their network, and the address selected on your Mac, then create a fresh code. Screen images and input use encrypted local transport and are not uploaded or recorded.</p>
 
     <h2>Updates</h2>
     <p>Automatic checks are on by default. While kokofocus is <strong>on</strong>, it checks Apple’s catalog at the top of each hour, such as 10:00 and 11:00. At startup, when you turn it on, or after waking, it also checks if there has not been an attempt in the current hour. Checks pause while kokofocus is off and cannot run when the app is quit. Failed checks retry at the next hour. Turn automatic checks off in <strong>Settings → General</strong>, or use <strong>Check for Updates</strong> to check manually.</p>
